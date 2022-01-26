@@ -2,6 +2,12 @@
   <v-container>
     <v-row class="text-center">
       <v-col cols="12">
+        <p>dateApp :</p>
+        <p>{{dateApp}}</p>
+      </v-col>
+      </v-row>
+    <v-row class="text-center">
+      <v-col cols="12">
         <v-img
           :src="require('../assets/logo.svg')"
           class="my-3"
@@ -92,10 +98,12 @@
 </template>
 
 <script>
+import {dateApp} from "../utils/dateApp";
   export default {
     name: 'HelloWorld',
 
     data: () => ({
+      dateApp: dateApp(),
       ecosystem: [
         {
           text: 'vuetify-loader',
