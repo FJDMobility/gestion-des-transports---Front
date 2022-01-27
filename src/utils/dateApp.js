@@ -8,7 +8,7 @@ export default function dateApp() {
 
     } else {
 
-        return process.env.vue_app_date;
+        return process.env.VUE_APP_DATE;
     }
 
 }
