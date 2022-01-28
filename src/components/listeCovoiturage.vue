@@ -30,13 +30,13 @@ export default {
       return dateTimeString.split("T").join("  à ");
     },
   },
-  mounted() {
-    //   this.refresh()
-    this.$store.getters.getAllCovoiturageUserId;
-  },
-  // beforeUpdate() {
+  // mounted() {
+  //   //   this.refresh()
   //   this.$store.getters.getAllCovoiturageUserId;
-  // } ,
+  // },
+  beforeCreate() {
+    this.$store.getters.getAllCovoiturageUserId;
+  } ,
 };
 </script>
 <style>
