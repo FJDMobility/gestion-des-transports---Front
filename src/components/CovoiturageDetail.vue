@@ -1,12 +1,12 @@
 <template lang="">
     <div>
-        <h2>Détail</h2>
-        <v-data-table :headers="headers" :items="covoiturage">
+        <h2>Détail : </h2>
+        <v-data-table :headers="headers" :items="covoiturage" dense hide-default-footer>
           <template v-slot:item.organisateur="{ item }">
-      <v-chip red>
-        {{ item.organisateur.prenom+"  "+item.organisateur.nom }}
-      </v-chip>
-    </template>
+            <v-chip color="light-green accent-1">
+               {{ item.organisateur.prenom+"  "+item.organisateur.nom }}
+           </v-chip>
+          </template>
 
         </v-data-table>
     </div>

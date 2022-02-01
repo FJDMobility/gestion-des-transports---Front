@@ -27,7 +27,7 @@ export default {
       items: [
         { icon: "mdi-home", text: "Accueil", action: "/" },
         {
-          icon: "mdi-list",
+          icon: "mdi-car-clock",
           text: "liste des covoiturages",
           action: "/listecovoiturage",
         },
