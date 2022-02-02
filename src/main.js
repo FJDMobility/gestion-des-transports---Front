@@ -11,11 +11,13 @@ Vue.use(Vuex)
 Vue.config.productionTip = false
 
 // init repo de dev :
-const allcovoiturageuser = {
-  "covoiturages":
-    [{
+// const allcovoiturageuser = 
+// {
+  // "covoiturages":
+  const allcovoiturageuser = [
+    {
       "id": 1,
-      "dateDepart": "2022-02-15T8:00",
+      "dateDepart": "2022-02-14T8:00",
       "status": "ouvert",
       "organisateur": {
         "id": 1,
@@ -108,12 +110,13 @@ const allcovoiturageuser = {
       "villeArrivee": "Uzes",
       "placesDisponibles": 0,
     }
-    ]
-};
+    ];
+// };
 
 localStorage.removeItem("covoiturageRepo")
 localStorage.setItem("covoiturageRepo", JSON.stringify(allcovoiturageuser));
-// var covoiturageRepo = Object.assign({}, allcovoiturageuser);
+// localStorage.setItem("covoiturageRepo", allcovoiturageuser);
+
 
 
 const store = new Vuex.Store({
@@ -125,13 +128,14 @@ const store = new Vuex.Store({
   },
   getters: {
     allCovoiturage: state => {
-      return state.listecovoiturage
+      return state.listecovoiturage;
     },
     // addListeClient : state => client => {
     //   state.listeclient.push(client)
     // },
     getAllCovoiturageUserId: (state) => {
-      state.listecovoiturage = JSON.parse(serviceCovoiturageApi.getAll(state.user.id));
+      // state.listecovoiturage = JSON.parse(serviceCovoiturageApi.getAll(state.user.id));
+      state.listecovoiturage = serviceCovoiturageApi.getAll(state.user.id);
       console.log("retour service liste covoiturage : ", state.listecovoiturage);
 
 

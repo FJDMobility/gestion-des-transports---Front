@@ -65,7 +65,8 @@ export default {
         // { text: "actions", value: "annul" },
         { text: "actions", value: "detail" },
       ],
-      listecovoiturage: this.$store.getters.allCovoiturage.covoiturages,
+      // listecovoiturage: this.$store.getters.allCovoiturage.covoiturages,
+      listecovoiturage: this.$store.getters.allCovoiturage,  // recupere les données du store
       userId: this.$store.state.user.id,
       valeursDetail: null,
       valeursParticipants: null,
