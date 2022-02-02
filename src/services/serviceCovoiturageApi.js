@@ -9,14 +9,13 @@ export default class serviceCovoiturageApi {
 
 
     static getCovoiturageRepo() {
-        // return JSON.parse(localStorage.covoiturageRepo);
-        console.log("getCovoiturage repo");
-        return localStorage.getItem("covoiturageRepo");
+        return JSON.parse(localStorage.covoiturageRepo);
+        // console.log("getCovoiturage repo");
+        // return localStorage.getItem("covoiturageRepo");
     }
 
 
     static storeCovoiturageRepo(repo) {
-        // localStorage.covoiturageRepo = JSON.stringify(repo);
         localStorage.setItem("covoiturageRepo", JSON.stringify(repo)) ;
     }
 
@@ -24,7 +23,6 @@ export default class serviceCovoiturageApi {
     static getAll(userId) {
         console.log("covoiturage getAll pour userId : ", userId)
         // return axios.get(urlbq + "/all")
-        // return JSON.stringify(covoiturageRepo);
         return this.getCovoiturageRepo();
     }
 
