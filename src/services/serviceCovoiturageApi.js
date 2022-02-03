@@ -9,7 +9,8 @@ export default class serviceCovoiturageApi {
 
 
     static getCovoiturageRepo() {
-        return JSON.parse(localStorage.covoiturageRepo);
+        return JSON.parse(localStorage.getItem("covoiturageRepo"));
+        // return JSON.parse(localStorage.covoiturageRepo); //OK
         // console.log("getCovoiturage repo");
         // return localStorage.getItem("covoiturageRepo");
     }

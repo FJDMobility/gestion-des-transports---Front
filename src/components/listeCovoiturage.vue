@@ -14,7 +14,10 @@
                           A venir
             </v-chip>
            </p>
-        <v-data-table :headers="headers" :items="listecovoiturage" @click:row="afficherDetail" single-select>
+        <v-data-table v-if="listecovoiturage" :headers="headers" 
+        :items="listecovoiturage" @click:row="afficherDetail" single-select>
+        <!-- <v-data-table  :headers="headers" 
+        :items="listecovoiturage" @click:row="afficherDetail" single-select> -->
           <template v-slot:item.dateDepart="{ item }">
             <v-chip :color="getHistoryColor(item.dateDepart)">
                           {{ formatDateDisplay(item.dateDepart) }}
@@ -27,6 +30,7 @@
             <template v-slot:item.placesDisponibles="{ item }">
               <p>
                 {{item.placesDisponibles-item.participant.length}}
+                <!-- {{item.placesDisponibles}} -->
               </p>
             </template>
         </v-data-table> 
@@ -66,13 +70,19 @@ export default {
         { text: "actions", value: "detail" },
       ],
       // listecovoiturage: this.$store.getters.allCovoiturage.covoiturages,
-      listecovoiturage: this.$store.getters.allCovoiturage,  // recupere les données du store
+      // listecovoiturage: this.$store.getters.allCovoiturage,  // recupere les données du store
       userId: this.$store.state.user.id,
       valeursDetail: null,
       valeursParticipants: null,
       date: dateApp(),
       dateDetail: "",
+      // ok: false,
       };
+  },
+  computed : {
+     listecovoiturage() {
+      return this.$store.getters.allCovoiturage
+    }
   },
   methods: {
     formatDateDisplay(dateTimeString) {
@@ -122,6 +132,9 @@ export default {
     },
     
   },
+  // watch: {
+  //   listecovoiturage: {}
+  // },
 
   beforeCreate() {
     this.$store.getters.getAllCovoiturageUserId;

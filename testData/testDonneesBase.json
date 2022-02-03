@@ -1,0 +1,78 @@
+[
+    {
+        "id": 1,
+        "dateDepart": "2021-12-24",
+        "villeDepart": "Paris",
+        "villeArrivee": "Nime",
+        "status": "ouvert",
+        "placesDisponibles": 5,
+        "voiture": {
+            "id": 1,
+            "marque": "Renault",
+            "model": "Clio",
+            "nbPlaces": 5,
+            "immatriculation": "AV-144-SC"
+        },
+        "organisateur": {
+            "id": 1,
+            "nom": "MENTSEUR",
+            "prenom": "Fares",
+            "dateNaissance": "1988-01-28",
+            "mail": "mentseur.fares@hotmail.fr"
+        },
+        "participant": [
+            {
+                "id": 5,
+                "nom": "SADIO",
+                "prenom": "MANE",
+                "dateNaissance": "1994-12-21",
+                "mail": "sadio.mane@hotmail.fr"
+            },
+            {
+                "id": 4,
+                "nom": "MOHAMED",
+                "prenom": "SALAH",
+                "dateNaissance": "1992-04-28",
+                "mail": "mohamed.salag@hotmail.fr"
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "dateDepart": "2021-12-29",
+        "villeDepart": "Montpellier",
+        "villeArrivee": "Nimes",
+        "status": "ouvert",
+        "placesDisponibles": 4,
+        "voiture": {
+            "id": 3,
+            "marque": "Toyota",
+            "model": "Yaris",
+            "nbPlaces": 4,
+            "immatriculation": "XR-65-TR"
+        },
+        "organisateur": {
+            "id": 5,
+            "nom": "SADIO",
+            "prenom": "MANE",
+            "dateNaissance": "1994-12-21",
+            "mail": "sadio.mane@hotmail.fr"
+        },
+        "participant": [
+            {
+                "id": 7,
+                "nom": "CURTIS",
+                "prenom": "JONES",
+                "dateNaissance": "2011-07-06",
+                "mail": "curtis.jones@hotmail.fr"
+            },
+            {
+                "id": 6,
+                "nom": "HARVEY",
+                "prenom": "ELLIOT",
+                "dateNaissance": "2099-02-02",
+                "mail": "harvey.elliot@hotmail.fr"
+            }
+        ]
+    }
+]

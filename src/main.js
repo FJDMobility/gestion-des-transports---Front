@@ -3,7 +3,7 @@ import App from './App.vue'
 import vuetify from './plugins/vuetify'
 import router from './router'
 import Vuex from 'vuex'
-import serviceCovoiturageApi from './services/serviceCovoiturageApi'
+import serviceCovoiturageApiProd from './services/serviceCovoiturageApiProd'
 import { default as dateApp } from '@/utils/dateApp'
 
 Vue.use(Vuex)
@@ -13,111 +13,16 @@ Vue.config.productionTip = false
 // init repo de dev :
 // const allcovoiturageuser = 
 // {
-  // "covoiturages":
-  const allcovoiturageuser = [
-    {
-      "id": 1,
-      "dateDepart": "2022-02-14T8:00",
-      "status": "ouvert",
-      "organisateur": {
-        "id": 1,
-        "prenom": "Victor",
-        "nom": "Hugo"
-      },
-      "voiture": {
-        "id": 1,
-        "marque": "renault",
-        "model": "twingo",
-        "nbrPlaces": 3,
-        "immatriculation": "1234 tt 25"
-      },
-      "participant": [{
-        "id": 2,
-        "nom": "Martin",
-        "prenom": "Gerard",
-        "mail": "gerard.martin@covoit.com"
-      },
-      {
-        "id": 3,
-        "nom": "Durant",
-        "prenom": "michel",
-        "mail": "michel.durant@covoit.com"
-      },
-      {
-        "id": 1,
-        "nom": "Mourier",
-        "prenom": "Denis",
-        "mail": "denis.mourier@covoit.com"
-      }
-      ],
-      "villeDepart": "Nîmes",
-      "villeArrivee": "Montpellier",
-      "placesDisponibles": 3
-    },
-    {
-      "id": 2,
-      "dateDepart": "2022-02-16T8:00",
-      "status": "ouvert",
-      "organisateur": {
-        "id": 1,
-        "prenom": "Jean-Jacques",
-        "nom": "Rousseau"},
-      "voiture": {
-        "id": 1,
-        "marque": "renault",
-        "model": "clio",
-        "nbrPlaces": 2,
-        "immatriculation": "567 tt 25"
-      },
-      "participant": [{
-        "id": 3,
-        "nom": "Durant",
-        "prenom": "michel",
-        "mail": "michel.durant@covoit.com"
-      },
-      {
-        "id": 1,
-        "nom": "Mourier",
-        "prenom": "Denis",
-        "mail": "denis.mourier@covoit.com"
-      }],
-      "villeDepart": "Nîmes",
-      "villeArrivee": "Le grau du roi",
-      "placesDisponibles": 0,
-    },
-    {
-      "id": 3,
-      "dateDepart": "2022-02-17T8:00",
-      "status": "ouvert",
-      "organisateur": {
-        "id": 1,
-        "prenom": "Jean-Jacques",
-        "nom": "Rousseau"},
-      "voiture": {
-        "id": 1,
-        "marque": "renault",
-        "model": "clio",
-        "nbrPlaces": 2,
-        "immatriculation": "567 tt 25"
-      },
-      "participant": [{
-        "id": 1,
-        "nom": "Mourier",
-        "prenom": "Denis",
-        "mail": "denis.mourier@covoit.com"
-      }],
-      "villeDepart": "Nîmes",
-      "villeArrivee": "Uzes",
-      "placesDisponibles": 0,
-    }
-    ];
-// };
+// "covoiturages":
+/*
+const allcovoiturageuser = require("../testData/testDonneesBase.json");
+
 
 localStorage.removeItem("covoiturageRepo")
 localStorage.setItem("covoiturageRepo", JSON.stringify(allcovoiturageuser));
 // localStorage.setItem("covoiturageRepo", allcovoiturageuser);
 
-
+*/
 
 const store = new Vuex.Store({
   state: {
@@ -135,7 +40,13 @@ const store = new Vuex.Store({
     // },
     getAllCovoiturageUserId: (state) => {
       // state.listecovoiturage = JSON.parse(serviceCovoiturageApi.getAll(state.user.id));
-      state.listecovoiturage = serviceCovoiturageApi.getAll(state.user.id);
+      // state.listecovoiturage = serviceCovoiturageApi.getAll(state.user.id);
+      serviceCovoiturageApiProd.getAll(state.user.id).then(
+        (response) => {
+          state.listecovoiturage = response.data
+          console.log("response.data : ", response.data);
+        }
+      )   ;
       console.log("retour service liste covoiturage : ", state.listecovoiturage);
 
 
