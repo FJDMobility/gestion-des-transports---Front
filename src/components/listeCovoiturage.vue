@@ -1,7 +1,7 @@
 <template lang="">
     <div>
         <h2>Liste des covoiturages pour : </h2>
-        <p> {{$store.state.user.prenom}} {{$store.state.user.nom}} - 
+        <p> {{$store.state.storeCovoiturage.user.prenom}} {{$store.state.storeCovoiturage.user.nom}} - 
           <v-chip :color="getHistoryColor(date)">
                           {{date}}
             </v-chip>
@@ -16,8 +16,6 @@
            </p>
         <v-data-table v-if="listecovoiturage" :headers="headers" 
         :items="listecovoiturage" @click:row="afficherDetail" single-select>
-        <!-- <v-data-table  :headers="headers" 
-        :items="listecovoiturage" @click:row="afficherDetail" single-select> -->
           <template v-slot:item.dateDepart="{ item }">
             <v-chip :color="getHistoryColor(item.dateDepart)">
                           {{ formatDateDisplay(item.dateDepart) }}
@@ -30,7 +28,6 @@
             <template v-slot:item.placesDisponibles="{ item }">
               <p>
                 {{item.placesDisponibles-item.participant.length}}
-                <!-- {{item.placesDisponibles}} -->
               </p>
             </template>
         </v-data-table> 
@@ -48,7 +45,6 @@
     
 </template>
 <script>
-// import serviceCovoiturageApi from "../services/serviceCovoiturageApi";
 import CovoiturageDetail from "./CovoiturageDetail.vue";
 import CovoiturageParticipants from "./CovoiturageParticipants.vue"
 import dateApp from "../utils/dateApp";
@@ -66,22 +62,18 @@ export default {
         { text: "ville arrivée", value: "villeArrivee" },
         { text: "places disponibles", value: "placesDisponibles" },
         { text: "statut", value: "status" },
-        // { text: "actions", value: "annul" },
         { text: "actions", value: "detail" },
       ],
-      // listecovoiturage: this.$store.getters.allCovoiturage.covoiturages,
-      // listecovoiturage: this.$store.getters.allCovoiturage,  // recupere les données du store
-      userId: this.$store.state.user.id,
+      userId: this.$store.state.storeCovoiturage.user.id,
       valeursDetail: null,
       valeursParticipants: null,
       date: dateApp(),
       dateDetail: "",
-      // ok: false,
       };
   },
   computed : {
      listecovoiturage() {
-      return this.$store.getters.allCovoiturage
+      return this.$store.getters.allCovoiturage;
     }
   },
   methods: {
@@ -132,11 +124,8 @@ export default {
     },
     
   },
-  // watch: {
-  //   listecovoiturage: {}
-  // },
 
-  beforeCreate() {
+beforeCreate() {
     this.$store.getters.getAllCovoiturageUserId;
   },
 };
