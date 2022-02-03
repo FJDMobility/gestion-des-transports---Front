@@ -7,14 +7,16 @@ import {store} from './store'
 import { default as dateApp } from '@/utils/dateApp'
 
 // POUR TEST SANS CONNEXION DB :
-// import loadTestData from "./testData/loadTestData.js"
-// loadTestData
+import {loadTestData} from "../testData/loadTestData"
+loadTestData()
+// POUR TEST SANS CONNEXION DB :
+
 
 Vue.use(Vuex)
 
 Vue.config.productionTip = false
 
-store.getters.getAllCovoiturageUserId
+
 
 new Vue({
   vuetify,
@@ -22,6 +24,9 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+
+
+store.getters.getAllCovoiturageUserId
 
 // test variables environnement :
 console.log("environnement : " + process.env.NODE_ENV)
