@@ -1,4 +1,5 @@
-import serviceCovoiturageApiProd from "../../services/serviceCovoiturageApiProd";
+import {serviceCovoiturageApi} from "../../services/index";
+// import serviceCovoiturageApi from "@/services"
 
 const storeCovoiturage = {
   state: {
@@ -13,7 +14,7 @@ const storeCovoiturage = {
     },
 
     getAllCovoiturageUserId: (state) => {
-      serviceCovoiturageApiProd.getAll(state.user.id).then(
+      serviceCovoiturageApi.getAll(state.user.id).then(
         (response) => {
           state.listecovoiturage = response.data
           console.log("response.data : ", response.data);

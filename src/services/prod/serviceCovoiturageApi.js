@@ -2,7 +2,7 @@ import axios from "axios"
 const urlcovoiturage = process.env.VUE_APP_URLCOVOITURAGE;
 
 
-export default class serviceCovoiturageApi {
+class serviceCovoiturageApi {
 
     static getAll (userId) {
         console.log("USER ID : " + userId);
@@ -17,3 +17,4 @@ export default class serviceCovoiturageApi {
     //     axios.create(urlbq, client);
     // }
 }
+export  {serviceCovoiturageApi}
