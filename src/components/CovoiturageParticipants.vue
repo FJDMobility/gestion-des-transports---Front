@@ -18,7 +18,7 @@
     </div>
 </template>
 <script>
-import serviceCovoiturageApi from "../services/serviceCovoiturageApi"
+import {serviceCovoiturageApi} from "../services/index"
 // import dateApp from "../utils/dateApp";
 export default {
   name: "CovoiturageParticipants",
