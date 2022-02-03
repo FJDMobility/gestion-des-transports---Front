@@ -28,13 +28,13 @@ export default {
         { icon: "mdi-home", text: "Accueil", action: "/" },
         {
           icon: "mdi-car-clock",
-          text: "liste des covoiturages",
+          text: "Mes covoiturages",
           action: "/listecovoiturage",
         },
         {
-          icon: "mdi-plus",
-          text: "autre",
-          action: "",
+          icon: "mdi-car-arrow-left", //mdi-calendar-clock
+          text: "Reserver un covoiturage",
+          action: "/covoiturageresa",
         },
         { icon: "mdi-help", text: "Help", action: "/about" },
        

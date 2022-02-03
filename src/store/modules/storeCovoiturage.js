@@ -14,15 +14,19 @@ const storeCovoiturage = {
     },
 
     getAllCovoiturageUserId: (state) => {
-      serviceCovoiturageApi.getAll(state.user.id).then(
+      // state.listecovoiturage = serviceCovoiturageApi.getAll(state.user.id);
+      serviceCovoiturageApi.getAll(state.user.id)
+      .then(
         (response) => {
           state.listecovoiturage = response.data
           console.log("response.data : ", response.data);
         }
       );
       console.log("retour service liste covoiturage : ", state.listecovoiturage);
-
-    },
+   },
+  //  getfromLocalStorage(data) {
+  //   store.state.listecovoiturage = data;
+  //  }
 
 
   }
