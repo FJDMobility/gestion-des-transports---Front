@@ -24,7 +24,40 @@ class serviceCovoiturageApi {
             // reject("erreur getAll covoiturage test");
 
         })
-}
+    }
+    // ******************************
+    // ecran CovoiturageResa :
+    // ******************************
+
+    static getCvResavoyagesRepo() {
+        return JSON.parse(localStorage.getItem("cvResavoyagesRepo"));
+    }
+
+    static storeCvResavoyagesRepo(repo) {
+        localStorage.setItem("cvResavoyagesRepo", JSON.stringify(repo));
+    }
+
+
+    static getcvResacovoituragesFromRepo(villeDepart, villeArrivee) {
+        if (villeDepart != null && villeDepart != "") {
+            let covoiturage = this.getCvResavoyagesRepo();
+            let selectCovoiturages = covoiturage.filter(covoiturage => villeDepart == covoiturage.villeDepart);
+            return selectCovoiturages;
+        }
+
+        if (villeArrivee != null && villeArrivee != "") {
+            return villeArrivee;
+        }
+    }
+
+    static getCovoiturageFromDepartArriveeDate(villeDepart, villeArrivee) {
+        // console.log("covoiturage getAll pour userId : ", userId);
+        let response = { "data": {} };
+        response["data"] = this.getcvResacovoituragesFromRepo(villeDepart, villeArrivee);
+        return new Promise(function (resolve) {resolve(response);});
+    }
+
+
 }
 
 export { serviceCovoiturageApi }
