@@ -24,7 +24,50 @@ class serviceCovoiturageApi {
             // reject("erreur getAll covoiturage test");
 
         })
-}
+    }
+    // ******************************
+    // ecran CovoiturageResa :
+    // ******************************
+
+    static getCvResavoyagesRepo() {
+        return JSON.parse(localStorage.getItem("cvResavoyagesRepo"));
+    }
+
+    static storeCvResavoyagesRepo(repo) {
+        localStorage.setItem("cvResavoyagesRepo", JSON.stringify(repo));
+    }
+
+
+    static getcvResacovoituragesFromRepo(villeDepart, villeArrivee, dateRecherche) {
+        console.log("getcvResacovoituragesFromRepo");
+        console.log("villeDepart : " + villeDepart);
+        console.log("villeDepart : " + villeArrivee);
+        let dateRechercheClean = dateRecherche;
+        dateRechercheClean;
+        if (villeDepart != null && villeDepart != "") {
+            let covoiturage = this.getCvResavoyagesRepo();
+            let selectCovoiturages = covoiturage.filter(covoiturage => (villeDepart == covoiturage.villeDepart 
+                                                                        // && dateRecherche == covoiturage.dateDepart
+                                                                        ));
+            return selectCovoiturages;
+        }
+
+        if (villeArrivee != null && villeArrivee != "") {
+            let covoiturage = this.getCvResavoyagesRepo();
+            let selectCovoiturages = covoiturage.filter(covoiturage => villeArrivee == covoiturage.villeArrivee);
+            return selectCovoiturages;
+
+        }
+    }
+
+    static getCovoiturageFromDepartArriveeDate(villeDepart, villeArrivee, dateRecherche) {
+        // console.log("covoiturage getAll pour userId : ", userId);
+        let response = { "data": {} };
+        response["data"] = this.getcvResacovoituragesFromRepo(villeDepart, villeArrivee, dateRecherche);
+        return new Promise(function (resolve) { resolve(response); });
+    }
+
+
 }
 
 export { serviceCovoiturageApi }

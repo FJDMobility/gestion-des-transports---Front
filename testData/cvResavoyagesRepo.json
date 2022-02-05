@@ -35,7 +35,7 @@
         "mail": "denis.mourier@covoit.com"
       }
     ],
-    "villeDepart": "Nîmes",
+    "villeDepart": "sommieres",
     "villeArrivee": "Montpellier",
     "placesDisponibles": 3
   },
@@ -69,9 +69,9 @@
         "mail": "denis.mourier@covoit.com"
       }
     ],
-    "villeDepart": "Nîmes",
+    "villeDepart": "Nîmessss",
     "villeArrivee": "Le grau du roi",
-    "placesDisponibles": 0
+    "placesDisponibles": 4
   },
   {
     "id": 3,
@@ -97,13 +97,13 @@
         "mail": "denis.mourier@covoit.com"
       }
     ],
-    "villeDepart": "Nîmes",
+    "villeDepart": "Nîmessss",
     "villeArrivee": "Uzes",
-    "placesDisponibles": 0
+    "placesDisponibles": 4
   },
   {
     "id": 4,
-    "dateDepart": "2022-02-17T8:00",
+    "dateDepart": "2022-02-18T8:00",
     "status": "ouvert",
     "organisateur": {
       "id": 3,
@@ -119,13 +119,13 @@
     },
     "participant": [
     ],
-    "villeDepart": "Nîmes",
+    "villeDepart": "Nîmessss",
     "villeArrivee": "Uzes",
-    "placesDisponibles": 0
+    "placesDisponibles": 4
   },
   {
     "id": 5,
-    "dateDepart": "2022-02-17T8:00",
+    "dateDepart": "2022-02-19T8:00",
     "status": "ouvert",
     "organisateur": {
       "id": 3,
@@ -147,8 +147,8 @@
       "mail": "lesmiserables@notredame.com"
       }
     ],
-    "villeDepart": "Nîmes",
+    "villeDepart": "Nîmessss",
     "villeArrivee": "Uzes",
-    "placesDisponibles": 0
+    "placesDisponibles": 4
   }    
 ]

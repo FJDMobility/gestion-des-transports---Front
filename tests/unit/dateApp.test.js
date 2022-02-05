@@ -6,8 +6,8 @@
 // import expect from 'jest'
 // import it from 'jest'
 
-// import dateApp from '@/utils/dateApp.js'
-import { default as dateApp } from '../../src/utils/dateApp'
+
+import { dateApp } from '../../src/utils/dateUtils'
 import moment from 'moment';
 
 

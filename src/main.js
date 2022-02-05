@@ -3,8 +3,8 @@ import App from './App.vue'
 import vuetify from './plugins/vuetify'
 import router from './router'
 import Vuex from 'vuex'
-import {store} from './store'
-import { default as dateApp } from '@/utils/dateApp'
+import store from './store'
+import {dateApp } from '@/utils/dateUtils'
 
 // POUR TEST SANS CONNEXION DB :
 import {loadTestData} from "../testData/loadTestData"
