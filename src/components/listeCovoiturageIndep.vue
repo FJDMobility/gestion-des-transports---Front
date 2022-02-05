@@ -104,9 +104,7 @@ export default {
       }
       return false;
     },
-    // cleanDate(dateparm) {
-    //   return dateparm.split("T")[0];
-    // },
+    
     isToday(dateparm) {
       let dateItem = dateparm.split("T")[0];
       let dateNow = dateApp();
