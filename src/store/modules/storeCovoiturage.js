@@ -29,10 +29,14 @@ const getters = {
     serviceCovoiturageApi.getCovoiturageFromDepartArriveeDate(villeDepart, villeArrivee, dateRecherche)
       .then(
         (response) => {
-          state.listecovoiturageresa = response.data
-          // console.log("response.data : ", response.data);
-        }
-      );
+          state.listecovoiturageresa = response.data;
+          return state.listecovoiturageresa;
+        })
+        .then(
+          (response) => {
+            response.data;
+            return state.listecovoiturageresa;
+          })
   },
   getStoreCovoituragesResa: (state) => {
     return state.listecovoiturageresa;

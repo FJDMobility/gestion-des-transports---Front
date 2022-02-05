@@ -21,22 +21,22 @@
                 </v-row>
               
                 <v-btn v-on:click="rechercher(villeDepart,villeArrivee,dateDepart)">Rechercher</v-btn>
+                <!-- <v-btn v-on:click="rafraichirListe1">Rafraichir</v-btn> -->
                </v-container>           
         </v-form>
 
-        <listeCovoiturageIndep :listecovoiturage="listeCovoiturageResa"/>
+        <listeCovoiturageIndep :listecovoiturage="listeRafraichie"/>
         
     </div>
 </template>
 <script>
 import {dateApp} from "../utils/dateUtils";
 import listeCovoiturageIndep from "../components/listeCovoiturageIndep.vue";
-// import {serviceCovoiturageApi} from "./services"
+import { mapGetters } from "vuex";
 export default {
   name: "CovoiturageResa",
   components: {
     listeCovoiturageIndep,
-    // CovoiturageParticipants
   },
   data() {
     return {
@@ -44,16 +44,23 @@ export default {
       villeArrivee: "",
       dateDepart: "",
       date: dateApp(),
-      // covoiturages: listeCovoiturageResa,
       valid: false,
+      listeRafraichie: [],
     };
   },
   computed: {
-    listeCovoiturageResa() {
-      return this.$store.getters.getStoreCovoituragesResa;
-    },
+    ...mapGetters(['getStoreCovoituragesResa',]),
+    
+  },
+  watch: {
+    getStoreCovoituragesResa: function () {
+      this.listeRafraichie = this.$store.getters.getStoreCovoituragesResa
+    }
   },
   methods: {
+    // rafraichirListe1() {
+    //   this.listeRafraichie = this.$store.getters.getStoreCovoituragesResa;
+    // },
     getHistoryColor(dateparm) {
       if (this.isHistory(dateparm)) {
         return "red";
@@ -80,7 +87,7 @@ export default {
       return false;
     },
     rechercher(villeDepart, villeArrivee, dateRecherche) {
-      this.$store.getters.getCovoiturageFromDepartArriveeDate(
+     this.$store.getters.getCovoiturageFromDepartArriveeDate(
         villeDepart,
         villeArrivee,
         dateRecherche
