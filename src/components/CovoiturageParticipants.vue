@@ -18,49 +18,44 @@
     </div>
 </template>
 <script>
-import {serviceCovoiturageApi} from "../services/index"
-// import dateApp from "../utils/dateApp";
+import { serviceCovoiturageApi } from "../services/index";
 export default {
   name: "CovoiturageParticipants",
-  props: { 
-      participants: {},
-      isHistory: Boolean,
-      },
+  
+  props: {
+    participants: {},
+    isHistory: Boolean,
+  },
   data() {
-      return {
-          headers: [
+    return {
+        headers: [
         { text: "Prenom", value: "prenom" },
         { text: "Nom", value: "nom" },
         { text: "Email", value: "mail" },
-        { text: "Téléphone", value: "telephone" },
-        { text: "", value: "annuler"}
-       ],
-       tbParticipants: this.participants,
-       userId: this.$store.state.user.id,
-      }
+        { text: "", value: "annuler" },
+      ],
+      userId: this.$store.state.storeCovoiturage.user.id,
+    };
   },
   methods: {
     annulerReservationCovoiturage(item, userId) {
-            serviceCovoiturageApi.annulerCovoiturage(
-             this.listecovoiturage.indexOf(item),
-                userId);
-      // this.editedIndex = this.desserts.indexOf(item);
-      // this.editedItem = Object.assign({}, item);
-      // this.dialogDelete = true;
+      serviceCovoiturageApi.annulerCovoiturage(
+        this.listecovoiturage.indexOf(item),
+        userId
+      );
     },
     isUser(item) {
-        if (item.id == this.userId) {
-            return true;
-        }
-        return false;
+      if (item.id == this.userId) {
+        return true;
+      }
+      return false;
     },
     isHistoryFct() {
-        if (this.isHistory == "true") {
-            return true;
-        }
-        return false;
-    }
-    
+      if (this.isHistory == "true") {
+        return true;
+      }
+      return false;
+    },
   },
 };
 </script>

@@ -14,7 +14,7 @@
                           A venir
             </v-chip>
            </p>
-        <v-data-table v-if="listecovoiturage" :headers="headers" 
+        <v-data-table  :headers="headers" 
         :items="listecovoiturage" @click:row="afficherDetail" single-select>
           <template v-slot:item.dateDepart="{ item }">
             <v-chip :color="getHistoryColor(item.dateDepart)">
@@ -25,7 +25,7 @@
             <template v-slot:item.detail="{ item }">
              <button @click="afficherDetail(item)">Détail</button>
             </template>
-            <template v-slot:item.placesDisponibles="{ item }">
+            <template v-slot:item.placesRestantes="{ item }">
               <p>
                 {{item.placesDisponibles-item.participant.length}}
               </p>
@@ -47,9 +47,12 @@
 <script>
 import CovoiturageDetail from "./CovoiturageDetail.vue";
 import CovoiturageParticipants from "./CovoiturageParticipants.vue"
-import dateApp from "../utils/dateApp";
+import {dateApp, cleanDate} from "../utils/dateUtils";
 export default {
-  name: "listeCovoiturage",
+  name: "listeCovoiturageIndep",
+  props: {
+    listecovoiturage : {},
+  },
   components: {
     CovoiturageDetail,
     CovoiturageParticipants
@@ -61,6 +64,7 @@ export default {
         { text: "ville départ", value: "villeDepart" },
         { text: "ville arrivée", value: "villeArrivee" },
         { text: "places disponibles", value: "placesDisponibles" },
+        { text: "places restantes", value: "placesRestantes" },
         { text: "statut", value: "status" },
         { text: "actions", value: "detail" },
       ],
@@ -71,25 +75,11 @@ export default {
       dateDetail: "",
       };
   },
-  computed : {
-     listecovoiturage() {
-      return this.$store.getters.allCovoiturage;
-    }
-  },
   methods: {
     formatDateDisplay(dateTimeString) {
       return dateTimeString.split("T").join("  à ");
     },
 
-    // annulerReservationCovoiturage(item, userId) {
-    //   serviceCovoiturageApi.annulerCovoiturage(
-    //     this.listecovoiturage.indexOf(item),
-    //     userId
-    //   );
-    //   // this.editedIndex = this.desserts.indexOf(item);
-    //   // this.editedItem = Object.assign({}, item);
-    //   // this.dialogDelete = true;
-    // },
     afficherDetail(item, row) {
       this.valeursDetail = [item];
       this.valeursParticipants = item.participant;
@@ -107,13 +97,16 @@ export default {
       return "green";
     },
     isHistory(dateparm) {
-      let dateItem = dateparm.split("T")[0];
+      let dateItem = cleanDate(dateparm);
       let dateNow = dateApp();
       if (dateItem < dateNow) {
         return true;
       }
       return false;
     },
+    // cleanDate(dateparm) {
+    //   return dateparm.split("T")[0];
+    // },
     isToday(dateparm) {
       let dateItem = dateparm.split("T")[0];
       let dateNow = dateApp();

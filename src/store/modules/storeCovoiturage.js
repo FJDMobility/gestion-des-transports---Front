@@ -25,14 +25,17 @@ const storeCovoiturage = {
       );
       console.log("retour service liste covoiturage : ", state.listecovoiturage);
    },
-   getCovoiturageFromDepartArriveeDate: (state) => (villeDepart) => (villeArrivee) => {
-    serviceCovoiturageApi.getCovoiturageFromDepartArriveeDate(villeDepart, villeArrivee)
+   getCovoiturageFromDepartArriveeDate: (state) => (villeDepart, villeArrivee, dateRecherche) => {
+    serviceCovoiturageApi.getCovoiturageFromDepartArriveeDate(villeDepart, villeArrivee, dateRecherche)
       .then(
         (response) => {
           state.listecovoiturageresa = response.data
           // console.log("response.data : ", response.data);
         }
       );
+   },
+   getStoreCovoituragesResa: (state) => {
+    return state.listecovoiturageresa;
    },
   
 

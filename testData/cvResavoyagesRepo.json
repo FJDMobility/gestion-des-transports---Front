@@ -71,7 +71,7 @@
     ],
     "villeDepart": "Nîmessss",
     "villeArrivee": "Le grau du roi",
-    "placesDisponibles": 0
+    "placesDisponibles": 4
   },
   {
     "id": 3,
@@ -99,11 +99,11 @@
     ],
     "villeDepart": "Nîmessss",
     "villeArrivee": "Uzes",
-    "placesDisponibles": 0
+    "placesDisponibles": 4
   },
   {
     "id": 4,
-    "dateDepart": "2022-02-17T8:00",
+    "dateDepart": "2022-02-18T8:00",
     "status": "ouvert",
     "organisateur": {
       "id": 3,
@@ -121,11 +121,11 @@
     ],
     "villeDepart": "Nîmessss",
     "villeArrivee": "Uzes",
-    "placesDisponibles": 0
+    "placesDisponibles": 4
   },
   {
-    "id": 4,
-    "dateDepart": "2022-02-17T8:00",
+    "id": 5,
+    "dateDepart": "2022-02-19T8:00",
     "status": "ouvert",
     "organisateur": {
       "id": 3,
@@ -149,6 +149,6 @@
     ],
     "villeDepart": "Nîmessss",
     "villeArrivee": "Uzes",
-    "placesDisponibles": 0
+    "placesDisponibles": 4
   }    
 ]

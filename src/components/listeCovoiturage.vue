@@ -47,7 +47,7 @@
 <script>
 import CovoiturageDetail from "./CovoiturageDetail.vue";
 import CovoiturageParticipants from "./CovoiturageParticipants.vue"
-import dateApp from "../utils/dateApp";
+import {dateApp} from "../utils/dateUtils";
 export default {
   name: "listeCovoiturage",
   components: {

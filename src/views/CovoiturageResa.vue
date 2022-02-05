@@ -20,39 +20,46 @@
                     </v-text-field>
                 </v-row>
               
-                <v-btn v-on:click="rechercher">Rechercher</v-btn>
+                <v-btn v-on:click="rechercher(villeDepart,villeArrivee,dateDepart)">Rechercher</v-btn>
                </v-container>           
         </v-form>
-        <listeCovoiturageIndep :covoiturage="covoiturages"/>
+
+        <listeCovoiturageIndep :listecovoiturage="listeCovoiturageResa"/>
         
     </div>
 </template>
 <script>
-import dateApp from '../utils/dateApp'
+import {dateApp} from "../utils/dateUtils";
 import listeCovoiturageIndep from "../components/listeCovoiturageIndep.vue";
 // import {serviceCovoiturageApi} from "./services"
 export default {
-    name: "CovoiturageResa",
-    components: {
+  name: "CovoiturageResa",
+  components: {
     listeCovoiturageIndep,
     // CovoiturageParticipants
+  },
+  data() {
+    return {
+      villeDepart: "",
+      villeArrivee: "",
+      dateDepart: "",
+      date: dateApp(),
+      // covoiturages: listeCovoiturageResa,
+      valid: false,
+    };
+  },
+  computed: {
+    listeCovoiturageResa() {
+      return this.$store.getters.getStoreCovoituragesResa;
     },
-    data() {
-        return {
-            villeDepart: "",
-            villeArrivee: "",
-            dateDepart: "",
-            date: dateApp(),
-            covoiturages: "",
-        }
-        },
-    methods: {
-        getHistoryColor(dateparm) {
+  },
+  methods: {
+    getHistoryColor(dateparm) {
       if (this.isHistory(dateparm)) {
-        return "red"
+        return "red";
       }
       if (this.isToday(dateparm)) {
-        return "orange"
+        return "orange";
       }
       return "green";
     },
@@ -68,16 +75,19 @@ export default {
       let dateItem = dateparm.split("T")[0];
       let dateNow = dateApp();
       if (dateItem == dateNow) {
-        return true
+        return true;
       }
-      return false
+      return false;
     },
-    rechercher(villeDepart, villeArrivee) {
-        this.$store.getters.getCovoiturageFromDepartArriveeDate(villeDepart, villeArrivee);
+    rechercher(villeDepart, villeArrivee, dateRecherche) {
+      this.$store.getters.getCovoiturageFromDepartArriveeDate(
+        villeDepart,
+        villeArrivee,
+        dateRecherche
+      );
     },
-    },
-    
-}
+  },
+};
 </script>
 <style>
 </style>
