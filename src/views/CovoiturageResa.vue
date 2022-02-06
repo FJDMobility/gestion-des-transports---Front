@@ -9,7 +9,7 @@
         <v-form v-model="valid">
             <v-container>
                 <v-row>
-                    <v-text-field v-model="villeDepart"
+                    <v-text-field v-model="villeDepart" autofocus="true"
                     label="Ville de depart">
                     </v-text-field>
                      <v-text-field v-model="villeArrivee"
@@ -21,7 +21,7 @@
                 </v-row>
               
                 <v-btn v-on:click="rechercher(villeDepart,villeArrivee,dateDepart,isFirstRequestRound)">Rechercher</v-btn>
-                <!-- <v-btn v-on:click="rafraichirListe1">Rafraichir</v-btn> -->
+                <v-btn v-on:click="initRecherche">Nouvelle recherche</v-btn>
                </v-container>           
         </v-form>
 
@@ -67,13 +67,12 @@ export default {
     },
   },
   methods: {
-    // isVilleOK () {
-    //   if (this.villeDepart == "" && this.villeArrivee == "") {
-    //     return false;
-    //   } else {
-    //     return true;
-    //   }
-    // },
+    initRecherche() {
+      this.isFirstRequestRound = true;
+      this.villeDepart = "";
+      this.villeArrivee = "";
+      this.listeRafraichie = [];
+    },
     getHistoryColor(dateparm) {
       if (this.isHistory(dateparm)) {
         return "red";
