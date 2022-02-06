@@ -33,6 +33,7 @@
 import { dateApp } from "../utils/dateUtils";
 import listeCovoiturageIndep from "../components/listeCovoiturageIndep.vue";
 import { mapGetters } from "vuex";
+import { getcvResacovoituragesFromArray } from "@/model/requests/rqResaCovoiturage";
 export default {
   name: "CovoiturageResa",
   components: {
@@ -52,14 +53,13 @@ export default {
   },
   computed: {
     ...mapGetters(["getStoreCovoituragesResa"]),
-    isVilleOK () {
+    isVilleOK() {
       if (this.villeDepart == "" && this.villeArrivee == "") {
         return true;
       } else {
         return false;
       }
     },
-    
   },
   watch: {
     getStoreCovoituragesResa: function () {
@@ -106,15 +106,20 @@ export default {
           villeArrivee,
           dateRecherche
         );
+        this.isFirstRequestRound = false;
         console.log("recherche API lancee");
       }
 
       if (isFirstRequestRound == false) {
-        this.$store.getters.getCovoiturageFromDepartArriveeDateStore(
-          villeDepart,
-          villeArrivee,
-          dateRecherche
-        );
+        this.listeRafraichie =
+          getcvResacovoituragesFromArray(
+            villeDepart,
+            villeArrivee,
+            dateRecherche,
+            this.$store.getters.getStoreCovoituragesResa
+          );
+          console.log("recherche 2 Store lancee : " + this.$store.getters.getStoreCovoituragesResa);
+
       }
     },
   },

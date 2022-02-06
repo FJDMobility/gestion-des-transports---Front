@@ -1,16 +1,15 @@
 // import axios from "axios"
 // const urlcovoiturage = process.env.VUE_APP_URLCOVOITURAGE;
-import { cleanDate, dateApp } from "@/utils/dateUtils"
+// import { cleanDate, dateApp } from "@/utils/dateUtils"
+// import {getcvResacovoituragesFromArray} from "@/services/rqResaCovoiturage"
+import {getcvResacovoituragesFromArray} from "@/model/requests/rqResaCovoiturage"
 
 
 class serviceCovoiturageApi {
 
     static getCovoiturageRepo() {
         return JSON.parse(localStorage.getItem("covoiturageRepo"));
-        // return JSON.parse(localStorage.covoiturageRepo); //OK
-        // console.log("getCovoiturage repo");
-        // return localStorage.getItem("covoiturageRepo");
-    }
+     }
 
     static storeCovoiturageRepo(repo) {
         localStorage.setItem("covoiturageRepo", JSON.stringify(repo));
@@ -39,42 +38,10 @@ class serviceCovoiturageApi {
     }
 
 
-    static getcvResacovoituragesFromRepo(villeDepart, villeArrivee, dateRecherche) {
-        console.log("getcvResacovoituragesFromRepo");
-        console.log("villeDepart : " + villeDepart);
-        console.log("villeArrivee : " + villeArrivee);
-        console.log("dateRecherche : " + dateRecherche);
-
-
-        let dateRechercheClean = cleanDate(dateRecherche);
-        if (dateRechercheClean == "") {
-            dateRechercheClean = dateApp();
-        }
-
-        console.log("dateRechercheClean: " + dateRechercheClean);
-
-        let selectCovoituragesVilleDepart = []
-          
-        if (villeDepart != null && villeDepart != "") {
-            let covoiturage = this.getCvResavoyagesRepo();
-            selectCovoituragesVilleDepart = covoiturage.filter(covoiturage => (villeDepart == covoiturage.villeDepart
-                && covoiturage.dateDepart >= dateRechercheClean
-            ));
-        } else {
-            selectCovoituragesVilleDepart = this.getCvResavoyagesRepo();
-        }
-
-        if (villeArrivee != null && villeArrivee != "") {
-            return selectCovoituragesVilleDepart.filter(covoiturage => (villeArrivee == covoiturage.villeArrivee
-                && covoiturage.dateDepart >= dateRechercheClean));
-        }
-        return selectCovoituragesVilleDepart;
-    }
-
-    static getCovoiturageFromDepartArriveeDateFromAPiToStore(villeDepart, villeArrivee, dateRecherche) {
+   static getCovoiturageFromDepartArriveeDateFromAPiToStore(villeDepart, villeArrivee, dateRecherche) {
         // console.log("covoiturage getAll pour userId : ", userId);
         let response = { "data": {} };
-        response["data"] = this.getcvResacovoituragesFromRepo(villeDepart, villeArrivee, dateRecherche);
+        response["data"] = getcvResacovoituragesFromArray(villeDepart, villeArrivee, dateRecherche, this.getCvResavoyagesRepo());
         return new Promise(function (resolve) { resolve(response); });
     }
 
