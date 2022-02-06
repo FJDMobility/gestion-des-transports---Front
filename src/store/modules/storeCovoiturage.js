@@ -30,13 +30,13 @@ const getters = {
       .then(
         (response) => {
           state.listecovoiturageresa = response.data;
-          return state.listecovoiturageresa;
+          return state.listecovoiturageresa; //utiliser un mutator à placer dans mutations:
         })
-        .then(
-          (response) => {
-            response.data;
-            return state.listecovoiturageresa;
-          })
+        // .then(
+        //   (response) => {
+        //     response.data;
+        //     return state.listecovoiturageresa;
+        //   })
   },
   getStoreCovoituragesResa: (state) => {
     return state.listecovoiturageresa;
