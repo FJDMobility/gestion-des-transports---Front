@@ -25,7 +25,7 @@
                </v-container>           
         </v-form>
 
-        <listeCovoiturageIndep :listecovoiturage="listeRafraichie"/>
+        <listeCovoiturageIndep :listecovoiturage="listeRafraichie" :date="dateDepart"/>
         
     </div>
 </template>
