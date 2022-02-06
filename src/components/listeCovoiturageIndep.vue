@@ -14,7 +14,7 @@
                           A venir
             </v-chip>
            </p>
-        <v-data-table  :headers="headers" 
+        <v-data-table  :headers="headers" :sort-by="['dateDepart', 'villeDepart']" :sort-desc="[false, false]"
         :items="listecovoiturage" @click:row="afficherDetail" single-select>
           <template v-slot:item.dateDepart="{ item }">
             <v-chip :color="getHistoryColor(item.dateDepart)">

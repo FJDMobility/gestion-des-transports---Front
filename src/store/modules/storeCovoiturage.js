@@ -25,8 +25,8 @@ const getters = {
       );
     console.log("retour service liste covoiturage : ", state.listecovoiturage);
   },
-  getCovoiturageFromDepartArriveeDate: (state) => (villeDepart, villeArrivee, dateRecherche) => {
-    serviceCovoiturageApi.getCovoiturageFromDepartArriveeDate(villeDepart, villeArrivee, dateRecherche)
+  getCovoiturageFromDepartArriveeDateApi: (state) => (villeDepart, villeArrivee, dateRecherche) => {
+    serviceCovoiturageApi.getCovoiturageFromDepartArriveeDateFromAPiToStore(villeDepart, villeArrivee, dateRecherche)
       .then(
         (response) => {
           state.listecovoiturageresa = response.data;

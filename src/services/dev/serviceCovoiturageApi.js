@@ -1,5 +1,6 @@
 // import axios from "axios"
 // const urlcovoiturage = process.env.VUE_APP_URLCOVOITURAGE;
+import { cleanDate, dateApp } from "@/utils/dateUtils"
 
 
 class serviceCovoiturageApi {
@@ -41,26 +42,36 @@ class serviceCovoiturageApi {
     static getcvResacovoituragesFromRepo(villeDepart, villeArrivee, dateRecherche) {
         console.log("getcvResacovoituragesFromRepo");
         console.log("villeDepart : " + villeDepart);
-        console.log("villeDepart : " + villeArrivee);
-        let dateRechercheClean = dateRecherche;
-        dateRechercheClean;
+        console.log("villeArrivee : " + villeArrivee);
+        console.log("dateRecherche : " + dateRecherche);
+
+
+        let dateRechercheClean = cleanDate(dateRecherche);
+        if (dateRechercheClean == "") {
+            dateRechercheClean = dateApp();
+        }
+
+        console.log("dateRechercheClean: " + dateRechercheClean);
+
+        let selectCovoituragesVilleDepart = []
+          
         if (villeDepart != null && villeDepart != "") {
             let covoiturage = this.getCvResavoyagesRepo();
-            let selectCovoiturages = covoiturage.filter(covoiturage => (villeDepart == covoiturage.villeDepart 
-                                                                        // && dateRecherche == covoiturage.dateDepart
-                                                                        ));
-            return selectCovoiturages;
+            selectCovoituragesVilleDepart = covoiturage.filter(covoiturage => (villeDepart == covoiturage.villeDepart
+                && covoiturage.dateDepart >= dateRechercheClean
+            ));
+        } else {
+            selectCovoituragesVilleDepart = this.getCvResavoyagesRepo();
         }
 
         if (villeArrivee != null && villeArrivee != "") {
-            let covoiturage = this.getCvResavoyagesRepo();
-            let selectCovoiturages = covoiturage.filter(covoiturage => villeArrivee == covoiturage.villeArrivee);
-            return selectCovoiturages;
-
+            return selectCovoituragesVilleDepart.filter(covoiturage => (villeArrivee == covoiturage.villeArrivee
+                && covoiturage.dateDepart >= dateRechercheClean));
         }
+        return selectCovoituragesVilleDepart;
     }
 
-    static getCovoiturageFromDepartArriveeDate(villeDepart, villeArrivee, dateRecherche) {
+    static getCovoiturageFromDepartArriveeDateFromAPiToStore(villeDepart, villeArrivee, dateRecherche) {
         // console.log("covoiturage getAll pour userId : ", userId);
         let response = { "data": {} };
         response["data"] = this.getcvResacovoituragesFromRepo(villeDepart, villeArrivee, dateRecherche);

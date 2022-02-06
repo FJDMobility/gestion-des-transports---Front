@@ -15,12 +15,12 @@
                      <v-text-field v-model="villeArrivee"
                     label="Ville d'arrivée">
                     </v-text-field>
-                     <v-text-field v-model="dateDepart"
+                     <v-text-field v-model="dateDepart" :disabled="isVilleOK"
                     label="Date de depart">
                     </v-text-field>
                 </v-row>
               
-                <v-btn v-on:click="rechercher(villeDepart,villeArrivee,dateDepart)">Rechercher</v-btn>
+                <v-btn v-on:click="rechercher(villeDepart,villeArrivee,dateDepart,isFirstRequestRound)">Rechercher</v-btn>
                 <!-- <v-btn v-on:click="rafraichirListe1">Rafraichir</v-btn> -->
                </v-container>           
         </v-form>
@@ -30,7 +30,7 @@
     </div>
 </template>
 <script>
-import {dateApp} from "../utils/dateUtils";
+import { dateApp } from "../utils/dateUtils";
 import listeCovoiturageIndep from "../components/listeCovoiturageIndep.vue";
 import { mapGetters } from "vuex";
 export default {
@@ -46,20 +46,33 @@ export default {
       date: dateApp(),
       valid: false,
       listeRafraichie: [],
+      isFirstRequestRound: true,
+      isDateAvailable: false,
     };
   },
   computed: {
-    ...mapGetters(['getStoreCovoituragesResa',]),
+    ...mapGetters(["getStoreCovoituragesResa"]),
+    isVilleOK () {
+      if (this.villeDepart == "" && this.villeArrivee == "") {
+        return true;
+      } else {
+        return false;
+      }
+    },
     
   },
   watch: {
     getStoreCovoituragesResa: function () {
-      this.listeRafraichie = this.$store.getters.getStoreCovoituragesResa
-    }
+      this.listeRafraichie = this.$store.getters.getStoreCovoituragesResa;
+    },
   },
   methods: {
-    // rafraichirListe1() {
-    //   this.listeRafraichie = this.$store.getters.getStoreCovoituragesResa;
+    // isVilleOK () {
+    //   if (this.villeDepart == "" && this.villeArrivee == "") {
+    //     return false;
+    //   } else {
+    //     return true;
+    //   }
     // },
     getHistoryColor(dateparm) {
       if (this.isHistory(dateparm)) {
@@ -86,12 +99,23 @@ export default {
       }
       return false;
     },
-    rechercher(villeDepart, villeArrivee, dateRecherche) {
-     this.$store.getters.getCovoiturageFromDepartArriveeDate(
-        villeDepart,
-        villeArrivee,
-        dateRecherche
-      );
+    rechercher(villeDepart, villeArrivee, dateRecherche, isFirstRequestRound) {
+      if (isFirstRequestRound == true) {
+        this.$store.getters.getCovoiturageFromDepartArriveeDateApi(
+          villeDepart,
+          villeArrivee,
+          dateRecherche
+        );
+        console.log("recherche API lancee");
+      }
+
+      if (isFirstRequestRound == false) {
+        this.$store.getters.getCovoiturageFromDepartArriveeDateStore(
+          villeDepart,
+          villeArrivee,
+          dateRecherche
+        );
+      }
     },
   },
 };
