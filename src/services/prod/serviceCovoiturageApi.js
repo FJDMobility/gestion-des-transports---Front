@@ -9,12 +9,13 @@ class serviceCovoiturageApi {
         return axios.get(urlcovoiturage + "/all")
       }
 
-    /*    static annulerCovoiturage(id, userId) {
-            axios.delete(urlcovoiturage +"/"+id)
-        }*/
+    static getCovoiturageFromDepartArriveeDateFromAPiToStore(villeDepart, villeArrivee, dateRecherche) {
+        return axios.get(urlcovoiturage + `/covoiturages?villeDepart=${villeDepart}&villeArrivee=${villeArrivee}&dateRecherche=${dateRecherche}`)
 
-    // static create(client) {
-    //     axios.create(urlbq, client);
-    // }
+//requete :
+// covoiturage.filter(covoiturage => ((covoiturage.villeDepart.includes(villeDepart) && covoiturage.villeArrivee.includes(villeArrivee))
+// && covoiturage.dateDepart >= dateRechercheClean))
+
+    }
 }
 export { serviceCovoiturageApi }

@@ -14,7 +14,7 @@
                           A venir
             </v-chip>
            </p>
-        <v-data-table  :headers="headers" 
+        <v-data-table  :headers="headers" :sort-by="['dateDepart', 'villeDepart']" :sort-desc="[false, false]"
         :items="listecovoiturage" @click:row="afficherDetail" single-select>
           <template v-slot:item.dateDepart="{ item }">
             <v-chip :color="getHistoryColor(item.dateDepart)">
@@ -52,6 +52,7 @@ export default {
   name: "listeCovoiturageIndep",
   props: {
     listecovoiturage : {},
+    date : dateApp(),
   },
   components: {
     CovoiturageDetail,
@@ -71,7 +72,7 @@ export default {
       userId: this.$store.state.storeCovoiturage.user.id,
       valeursDetail: null,
       valeursParticipants: null,
-      date: dateApp(),
+      // date: dateApp(),
       dateDetail: "",
       };
   },
@@ -107,7 +108,8 @@ export default {
     
     isToday(dateparm) {
       let dateItem = dateparm.split("T")[0];
-      let dateNow = dateApp();
+      // let dateNow = dateApp();
+      let dateNow = this.date; //pour afficher la date de recherche en orange
       if (dateItem == dateNow) {
         return true
       }

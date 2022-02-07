@@ -1,15 +1,15 @@
 // import axios from "axios"
 // const urlcovoiturage = process.env.VUE_APP_URLCOVOITURAGE;
+// import { cleanDate, dateApp } from "@/utils/dateUtils"
+// import {getcvResacovoituragesFromArray} from "@/services/rqResaCovoiturage"
+import {getcvResacovoituragesFromArray} from "@/model/requests/rqResaCovoiturage"
 
 
 class serviceCovoiturageApi {
 
     static getCovoiturageRepo() {
         return JSON.parse(localStorage.getItem("covoiturageRepo"));
-        // return JSON.parse(localStorage.covoiturageRepo); //OK
-        // console.log("getCovoiturage repo");
-        // return localStorage.getItem("covoiturageRepo");
-    }
+     }
 
     static storeCovoiturageRepo(repo) {
         localStorage.setItem("covoiturageRepo", JSON.stringify(repo));
@@ -38,32 +38,10 @@ class serviceCovoiturageApi {
     }
 
 
-    static getcvResacovoituragesFromRepo(villeDepart, villeArrivee, dateRecherche) {
-        console.log("getcvResacovoituragesFromRepo");
-        console.log("villeDepart : " + villeDepart);
-        console.log("villeDepart : " + villeArrivee);
-        let dateRechercheClean = dateRecherche;
-        dateRechercheClean;
-        if (villeDepart != null && villeDepart != "") {
-            let covoiturage = this.getCvResavoyagesRepo();
-            let selectCovoiturages = covoiturage.filter(covoiturage => (villeDepart == covoiturage.villeDepart 
-                                                                        // && dateRecherche == covoiturage.dateDepart
-                                                                        ));
-            return selectCovoiturages;
-        }
-
-        if (villeArrivee != null && villeArrivee != "") {
-            let covoiturage = this.getCvResavoyagesRepo();
-            let selectCovoiturages = covoiturage.filter(covoiturage => villeArrivee == covoiturage.villeArrivee);
-            return selectCovoiturages;
-
-        }
-    }
-
-    static getCovoiturageFromDepartArriveeDate(villeDepart, villeArrivee, dateRecherche) {
+   static getCovoiturageFromDepartArriveeDateFromAPiToStore(villeDepart, villeArrivee, dateRecherche) {
         // console.log("covoiturage getAll pour userId : ", userId);
         let response = { "data": {} };
-        response["data"] = this.getcvResacovoituragesFromRepo(villeDepart, villeArrivee, dateRecherche);
+        response["data"] = getcvResacovoituragesFromArray(villeDepart, villeArrivee, dateRecherche, this.getCvResavoyagesRepo());
         return new Promise(function (resolve) { resolve(response); });
     }
 

@@ -9,30 +9,31 @@
         <v-form v-model="valid">
             <v-container>
                 <v-row>
-                    <v-text-field v-model="villeDepart"
+                    <v-text-field v-model="villeDepart" autofocus="true"
                     label="Ville de depart">
                     </v-text-field>
                      <v-text-field v-model="villeArrivee"
                     label="Ville d'arrivée">
                     </v-text-field>
-                     <v-text-field v-model="dateDepart"
+                     <v-text-field v-model="dateDepart" :disabled="isVilleOK"
                     label="Date de depart">
                     </v-text-field>
                 </v-row>
               
-                <v-btn v-on:click="rechercher(villeDepart,villeArrivee,dateDepart)">Rechercher</v-btn>
-                <!-- <v-btn v-on:click="rafraichirListe1">Rafraichir</v-btn> -->
+                <v-btn v-on:click="rechercher(villeDepart,villeArrivee,dateDepart,isFirstRequestRound)">Rechercher</v-btn>
+                <v-btn v-on:click="initRecherche">Nouvelle recherche</v-btn>
                </v-container>           
         </v-form>
 
-        <listeCovoiturageIndep :listecovoiturage="listeRafraichie"/>
+        <listeCovoiturageIndep :listecovoiturage="listeRafraichie" :date="dateDepart"/>
         
     </div>
 </template>
 <script>
-import {dateApp} from "../utils/dateUtils";
+import { dateApp } from "../utils/dateUtils";
 import listeCovoiturageIndep from "../components/listeCovoiturageIndep.vue";
 import { mapGetters } from "vuex";
+import { getcvResacovoituragesFromArray } from "@/model/requests/rqResaCovoiturage";
 export default {
   name: "CovoiturageResa",
   components: {
@@ -46,21 +47,32 @@ export default {
       date: dateApp(),
       valid: false,
       listeRafraichie: [],
+      isFirstRequestRound: true,
+      isDateAvailable: false,
     };
   },
   computed: {
-    ...mapGetters(['getStoreCovoituragesResa',]),
-    
+    ...mapGetters(["getStoreCovoituragesResa"]),
+    isVilleOK() {
+      if (this.villeDepart == "" && this.villeArrivee == "") {
+        return true;
+      } else {
+        return false;
+      }
+    },
   },
   watch: {
     getStoreCovoituragesResa: function () {
-      this.listeRafraichie = this.$store.getters.getStoreCovoituragesResa
-    }
+      this.listeRafraichie = this.$store.getters.getStoreCovoituragesResa;
+    },
   },
   methods: {
-    // rafraichirListe1() {
-    //   this.listeRafraichie = this.$store.getters.getStoreCovoituragesResa;
-    // },
+    initRecherche() {
+      this.isFirstRequestRound = true;
+      this.villeDepart = "";
+      this.villeArrivee = "";
+      this.listeRafraichie = [];
+    },
     getHistoryColor(dateparm) {
       if (this.isHistory(dateparm)) {
         return "red";
@@ -86,12 +98,28 @@ export default {
       }
       return false;
     },
-    rechercher(villeDepart, villeArrivee, dateRecherche) {
-     this.$store.getters.getCovoiturageFromDepartArriveeDate(
-        villeDepart,
-        villeArrivee,
-        dateRecherche
-      );
+    rechercher(villeDepart, villeArrivee, dateRecherche, isFirstRequestRound) {
+      if (isFirstRequestRound == true) {
+        this.$store.getters.getCovoiturageFromDepartArriveeDateApi(
+          villeDepart,
+          villeArrivee,
+          dateRecherche
+        );
+        this.isFirstRequestRound = false;
+        console.log("recherche API lancee");
+      }
+
+      if (isFirstRequestRound == false) {
+        this.listeRafraichie =
+          getcvResacovoituragesFromArray(
+            villeDepart,
+            villeArrivee,
+            dateRecherche,
+            this.$store.getters.getStoreCovoituragesResa
+          );
+          console.log("recherche 2 Store lancee : " + this.$store.getters.getStoreCovoituragesResa);
+
+      }
     },
   },
 };

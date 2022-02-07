@@ -25,18 +25,18 @@ const getters = {
       );
     console.log("retour service liste covoiturage : ", state.listecovoiturage);
   },
-  getCovoiturageFromDepartArriveeDate: (state) => (villeDepart, villeArrivee, dateRecherche) => {
-    serviceCovoiturageApi.getCovoiturageFromDepartArriveeDate(villeDepart, villeArrivee, dateRecherche)
+  getCovoiturageFromDepartArriveeDateApi: (state) => (villeDepart, villeArrivee, dateRecherche) => {
+    serviceCovoiturageApi.getCovoiturageFromDepartArriveeDateFromAPiToStore(villeDepart, villeArrivee, dateRecherche)
       .then(
         (response) => {
           state.listecovoiturageresa = response.data;
-          return state.listecovoiturageresa;
+          return state.listecovoiturageresa; //utiliser un mutator à placer dans mutations:
         })
-        .then(
-          (response) => {
-            response.data;
-            return state.listecovoiturageresa;
-          })
+        // .then(
+        //   (response) => {
+        //     response.data;
+        //     return state.listecovoiturageresa;
+        //   })
   },
   getStoreCovoituragesResa: (state) => {
     return state.listecovoiturageresa;
