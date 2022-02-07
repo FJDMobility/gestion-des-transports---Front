@@ -115,7 +115,7 @@ export default {
     isToday(dateparm) {
       let dateItem = dateparm.split("T")[0];
       // let dateNow = dateApp();
-      let dateNow = this.date; //pour afficher la date de recherche en orange
+      let dateNow = this.$props.date; //pour afficher la date de recherche en orange
       if (dateItem == dateNow) {
         return true
       }
