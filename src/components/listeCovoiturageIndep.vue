@@ -23,7 +23,7 @@
           </template>
          
             <template v-slot:item.detail="{ item }">
-             <button @click="afficherDetail(item)">Détail</button>
+             <button @click="afficherDetail(item)">Reserver</button>
             </template>
             <template v-slot:item.placesRestantes="{ item }">
               <p>
@@ -37,7 +37,7 @@
                 mdi-close-box
               </v-icon>
             </v-btn>
-            <CovoiturageDetail :covoiturage="valeursDetail"/>
+            <CovoiturageDetail :covoiturage="valeursDetail" resaPossible="true" placesRestantes="1"/>
             <p></p>
             <CovoiturageParticipants :participants="valeursParticipants" :isHistory="isHistory(dateDetail)"/>
           </div>
@@ -53,6 +53,7 @@ export default {
   props: {
     listecovoiturage : {},
     date : dateApp(),
+    
   },
   components: {
     CovoiturageDetail,

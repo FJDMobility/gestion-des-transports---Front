@@ -40,7 +40,24 @@ const getters = {
   },
   getStoreCovoituragesResa: (state) => {
     return state.listecovoiturageresa;
+  },
+
+  doReservation: (covoiturageId) => {
+    serviceCovoiturageApi.sendReservation(covoiturageId)
+        .then(
+          (response) => {
+            if (response.OK) {
+              console.log("doReservation")
+              // recup les participants au covoiturage
+            }
+          }
+        );
+  },
+  getUser: (state) => {
+    return state.user;
   }
 };
+
+
 
 export default { state, getters }

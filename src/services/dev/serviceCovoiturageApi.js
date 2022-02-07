@@ -46,6 +46,21 @@ class serviceCovoiturageApi {
     }
 
 
+    static addUserToCovoiturageRepo(covoiturageId, userId) {
+        let repo = this.getCvResavoyagesRepo();
+        userId;
+        repo["id" == covoiturageId].participant.push(this.$store.getters.getUser);
+        this.storeCvResavoyagesRepo(repo);
+    }
+
+    static sendReservation(covoiturageId, userId) {
+        console.log("ajouter resa pour user : " + userId + "covoiturage : " + covoiturageId)
+        let response = {};
+        this.addUserToCovoiturageRepo(covoiturageId, userId);
+        return new Promise(function (resolve) { resolve(response.OK); });
+    }
+
+
 }
 
 export { serviceCovoiturageApi }
