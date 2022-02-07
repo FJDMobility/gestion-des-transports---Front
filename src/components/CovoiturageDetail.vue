@@ -8,7 +8,7 @@
            </v-chip>
           </template>
           <template v-slot:item.action="{ item }">
-            <v-btn v-if="placesRestantes!=0" @click="reserver(item)">Reserver</v-btn>
+            <v-btn v-if="placesrestantes!=0" @click="reserver(item)">Reserver</v-btn>
           </template>
 
         </v-data-table>
@@ -19,8 +19,8 @@ export default {
   name : "CovoiturageDetail",
   props : {
         covoiturage : {},
-        resaPossible : Boolean,
-        placesRestantes : Number,
+        resapossible : Boolean,
+        placesrestantes : Number,
     },
   data() {
     return {
