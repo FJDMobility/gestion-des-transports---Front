@@ -49,6 +49,7 @@ const getters = {
             if (response.OK) {
               console.log("doReservation")
               // recup les participants au covoiturage
+              // refaire une rq sur la base avec toutes les info de la vue
             }
           }
         );

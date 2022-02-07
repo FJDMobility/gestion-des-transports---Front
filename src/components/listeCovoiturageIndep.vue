@@ -52,7 +52,7 @@ export default {
   name: "listeCovoiturageIndep",
   props: {
     listecovoiturage : {},
-    date : dateApp(),
+    date : String,
     
   },
   components: {
