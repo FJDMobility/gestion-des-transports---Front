@@ -3,9 +3,12 @@ import { serviceCovoiturageApi } from "../../services/index";
 
 const state = {
   monState: "State Store 01",
-  user: { "id": 1, "nom": "Mourier", "prenom": "Denis" },
+  user: { "id": 1, "nom": "Mourier", "prenom": "Denis", "mail": "denis.mourier@covoit.com" },
   listecovoiturage: null,
-  listecovoiturageresa: null
+  listecovoiturageresa: null,
+  covoiturageresaOrganisateur: null,
+  covoiturageresaVehicule: null,
+  covoiturageresaParticipants: null,
 
 };
 
@@ -40,7 +43,25 @@ const getters = {
   },
   getStoreCovoituragesResa: (state) => {
     return state.listecovoiturageresa;
-  }
+  },
+
+  doReservation: (state) => (covoiturageId) => {
+    serviceCovoiturageApi.sendReservation(covoiturageId, state.user)
+        .then(
+          (response) => {
+            if (response.OK) {
+              console.log("doReservation")
+              // recup les participants au covoiturage
+              // refaire une rq sur la base avec toutes les info de la vue
+            }
+          }
+        );
+  },
+  getUser: (state) => {
+    return state.user;
+  },
 };
+
+
 
 export default { state, getters }

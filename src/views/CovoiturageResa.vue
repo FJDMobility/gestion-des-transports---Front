@@ -2,14 +2,14 @@
     <div>
         <h2>Réserver un covoiturages : </h2>
         <p> {{$store.state.storeCovoiturage.user.prenom}} {{$store.state.storeCovoiturage.user.nom}} - 
-          <v-chip :color="getHistoryColor(date)">
-                          {{date}}
+          <v-chip :color="getHistoryColor(dateDuJour)">
+                          {{dateDuJour}}
             </v-chip>
         </p>
         <v-form v-model="valid">
             <v-container>
                 <v-row>
-                    <v-text-field v-model="villeDepart" autofocus="true"
+                    <v-text-field v-model="villeDepart" autofocus
                     label="Ville de depart">
                     </v-text-field>
                      <v-text-field v-model="villeArrivee"
@@ -44,7 +44,7 @@ export default {
       villeDepart: "",
       villeArrivee: "",
       dateDepart: "",
-      date: dateApp(),
+      dateDuJour: dateApp(),
       valid: false,
       listeRafraichie: [],
       isFirstRequestRound: true,
