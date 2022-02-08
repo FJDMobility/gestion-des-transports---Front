@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 
-export default function dateApp() {
+function dateApp() {
     if (process.env.NODE_ENV == "production" || process.env.VUE_APP_DATE == "") {
 
         return moment().format('YYYY-MM-DD');
@@ -13,5 +13,9 @@ export default function dateApp() {
 
 }
 
+function cleanDate(dateparm) {
+    return dateparm.split("T")[0];
+}
 
-export { dateApp };
+
+export { dateApp, cleanDate };

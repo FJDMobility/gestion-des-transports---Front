@@ -14,7 +14,7 @@
                           A venir
             </v-chip>
            </p>
-        <v-data-table v-if="listecovoiturage" :headers="headers" 
+        <v-data-table  :headers="headers" :sort-by="['dateDepart', 'villeDepart']" :sort-desc="[false, false]"
         :items="listecovoiturage" @click:row="afficherDetail" single-select>
           <template v-slot:item.dateDepart="{ item }">
             <v-chip :color="getHistoryColor(item.dateDepart)">
@@ -22,14 +22,15 @@
             </v-chip>
           </template>
          
-            <template v-slot:item.detail="{ item }">
-             <button @click="afficherDetail(item)">Détail</button>
+            <template v-slot>
+             <!-- <button @click="afficherDetail(item, row)">Reserver</button> -->
+             <button>Reserver</button>
             </template>
-            <template v-slot:item.placesDisponibles="{ item }">
+            <!-- <template v-slot:item.placesRestantes="{ item }">
               <p>
-                {{item.placesDisponibles-item.participant.length}}
+                {{item.placesDisponibles}}
               </p>
-            </template>
+            </template> -->
         </v-data-table> 
           <div v-if="valeursDetail" >
             <v-btn @click="()=>valeursDetail=null">
@@ -37,7 +38,7 @@
                 mdi-close-box
               </v-icon>
             </v-btn>
-            <CovoiturageDetail :covoiturage="valeursDetail"/>
+            <CovoiturageDetail :covoiturage="valeursDetail" resapossible :placesrestantes="placesrestantes"/>
             <p></p>
             <CovoiturageParticipants :participants="valeursParticipants" :isHistory="isHistory(dateDetail)"/>
           </div>
@@ -47,10 +48,14 @@
 <script>
 import CovoiturageDetail from "./CovoiturageDetail.vue";
 import CovoiturageParticipants from "./CovoiturageParticipants.vue"
-import {dateApp} from "../utils/dateUtils";
-import router from "../router";
+import {dateApp, cleanDate} from "../utils/dateUtils";
 export default {
-  name: "listeCovoiturage",
+  name: "listeCovoiturageIndep",
+  props: {
+    listecovoiturage : {},
+    date : String,
+    
+  },
   components: {
     CovoiturageDetail,
     CovoiturageParticipants
@@ -62,41 +67,31 @@ export default {
         { text: "ville départ", value: "villeDepart" },
         { text: "ville arrivée", value: "villeArrivee" },
         { text: "places disponibles", value: "placesDisponibles" },
+        // { text: "places restantes", value: "placesRestantes" },
         { text: "statut", value: "status" },
         { text: "actions", value: "detail" },
       ],
       userId: this.$store.state.storeCovoiturage.user.id,
       valeursDetail: null,
       valeursParticipants: null,
-      date: dateApp(),
+      // date: dateApp(),
       dateDetail: "",
+      resapossible: true,
+      placesrestantes: 0,
       };
-  },
-  computed : {
-     listecovoiturage() {
-      console.log("covoiturage list dans la vue : "+ this.$store.getters.allCovoiturage);
-      return this.$store.getters.allCovoiturage;
-    }
   },
   methods: {
     formatDateDisplay(dateTimeString) {
       return dateTimeString.split("T").join("  à ");
     },
 
-    // annulerReservationCovoiturage(item, userId) {
-    //   serviceCovoiturageApi.annulerCovoiturage(
-    //     this.listecovoiturage.indexOf(item),
-    //     userId
-    //   );
-    //   // this.editedIndex = this.desserts.indexOf(item);
-    //   // this.editedItem = Object.assign({}, item);
-    //   // this.dialogDelete = true;
-    // },
     afficherDetail(item, row) {
+      this.placesrestantes = item.placesDisponibles
       this.valeursDetail = [item];
       this.valeursParticipants = item.participant;
       row.select(true);
       this.dateDetail = item.dateDepart;
+      
       
     },
     getHistoryColor(dateparm) {
@@ -109,16 +104,18 @@ export default {
       return "green";
     },
     isHistory(dateparm) {
-      let dateItem = dateparm.split("T")[0];
+      let dateItem = cleanDate(dateparm);
       let dateNow = dateApp();
       if (dateItem < dateNow) {
         return true;
       }
       return false;
     },
+    
     isToday(dateparm) {
       let dateItem = dateparm.split("T")[0];
-      let dateNow = dateApp();
+      // let dateNow = dateApp();
+      let dateNow = this.$props.date; //pour afficher la date de recherche en orange
       if (dateItem == dateNow) {
         return true
       }
@@ -127,16 +124,9 @@ export default {
     
   },
 
-beforeMount() {
-    if(this.$store.getters.isAuthenticated === true){
-      this.$store.dispatch('getAllCovoiturageUser', this.$store.getters.getHeaders);
-    }else{
-      router.push("/login")
-    }
- },
-
-
-
+beforeCreate() {
+    this.$store.getters.getAllCovoiturageUserId;
+  },
 };
 </script>
 <style>

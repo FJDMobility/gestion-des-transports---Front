@@ -7,15 +7,20 @@
                {{ item.organisateur.prenom+"  "+item.organisateur.nom }}
            </v-chip>
           </template>
+          <template v-slot:item.action="{}">
+            <v-btn v-if="placesrestantes!=0" @click="reserver">Reserver</v-btn>
+          </template>
 
         </v-data-table>
     </div>
 </template>
 <script>
 export default {
-  name: "CovoiturageDetail",
+  name : "CovoiturageDetail",
   props : {
         covoiturage : {},
+        resapossible : Boolean,
+        placesrestantes : Number,
     },
   data() {
     return {
@@ -25,6 +30,7 @@ export default {
         { text: "Modèle", value: "voiture.model" },
         { text: "Immatriculation", value: "voiture.immatriculation" },
         { text: "Nb de places", value: "voiture.nbrPlaces" },
+        { text: "Action", value: "action" },
       ],
     //   covoiturageAffichage: this.covoiturage,
     };
@@ -32,6 +38,10 @@ export default {
   methods: {
       affichOrganisateur() {
           return this.covoiturage[0].organisateur.prenom + "  " + this.covoiturage[0].organisateur.nom
+      },
+      reserver() {
+        console.log("CovoiturageDetail - props - covoiturage - id : " + this.$props.covoiturage[0].id)
+        this.$store.getters.doReservation(this.$props.covoiturage[0].id)
       }
   },
 };

@@ -6,7 +6,7 @@ import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex);
 
-const store = new Vuex.Store({
+export default new Vuex.Store({
     modules : {
         storeCovoiturage : storeCovoiturage,
         storeUser : storeUser,
@@ -15,4 +15,6 @@ const store = new Vuex.Store({
 
   });
 
-  export {store}
+
+
+
