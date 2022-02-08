@@ -3,6 +3,9 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Covoiturage from '../views/Covoiturage.vue'
 import CovoiturageResa from '../views/CovoiturageResa.vue'
+import Organisercovoiturage from '../views/Organisercovoiturage.vue'
+import Signin from '../views/Signin.vue'
+import Signup from '../views/Signup.vue'
 
 Vue.use(VueRouter)
 
@@ -13,6 +16,11 @@ const routes = [
     component: Home
   },
   {
+    path: '/organisercovoiturage',
+    name: 'MescovoituragesOrganisercovoiturage',
+    component: Organisercovoiturage
+  },
+  {
     path: '/listecovoiturage',
     name: 'listecovoiturage',
     component: Covoiturage
@@ -21,6 +29,16 @@ const routes = [
     path: '/covoiturageresa',
     name: 'CovoiturageResa',
     component: CovoiturageResa
+  },
+  {
+    path: '/signin',
+    name: 'Signin',
+    component: Signin
+  },
+  {
+    path: '/signup',
+    name: 'Signup',
+    component: Signup
   },
   {
     path: '/about',
