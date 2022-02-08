@@ -1,6 +1,6 @@
 <template lang="">
-    <div class="container">
-        <h2>Réserver un covoiturage : </h2>
+    <div>
+        <h2>Réserver un covoiturages : </h2>
         <p> {{$store.state.storeCovoiturage.user.prenom}} {{$store.state.storeCovoiturage.user.nom}} - 
           <v-chip :color="getHistoryColor(date)">
                           {{date}}
@@ -24,8 +24,7 @@
                 <v-btn v-on:click="initRecherche">Nouvelle recherche</v-btn>
                </v-container>           
         </v-form>
-<br>
-<br>
+
         <listeCovoiturageIndep :listecovoiturage="listeRafraichie" :date="dateDepart"/>
         
     </div>
