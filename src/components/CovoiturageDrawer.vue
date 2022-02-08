@@ -36,6 +36,11 @@ export default {
           text: "Reserver un covoiturage",
           action: "/covoiturageresa",
         },
+                {
+          icon: "mdi-help", //mdi-calendar-clock
+          text: "Se connecter",
+          action: "/login",
+        },
         { icon: "mdi-help", text: "Help", action: "/about" },
        
       ],
