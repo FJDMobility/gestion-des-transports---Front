@@ -62,6 +62,22 @@ const getters = {
   },
 };
 
+const actions = {
+  getAllCovoiturageUser({ commit },headers) {
+    serviceCovoiturageApi.getAll(headers)
+      .then(
+        (response) => {
+          commit('setListCovoiturage', response.data)
+        }
+      );
+  }
+};
 
+const mutations = {
+  setListCovoiturage(state,data){
+    console.log(data);
+    state.listecovoiturage=data;
+  }
+};
 
-export default { state, getters }
+export default { state, getters, actions, mutations }

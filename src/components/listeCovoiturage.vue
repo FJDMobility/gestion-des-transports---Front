@@ -48,6 +48,7 @@
 import CovoiturageDetail from "./CovoiturageDetail.vue";
 import CovoiturageParticipants from "./CovoiturageParticipants.vue"
 import {dateApp} from "../utils/dateUtils";
+import router from "../router";
 export default {
   name: "listeCovoiturage",
   components: {
@@ -73,6 +74,7 @@ export default {
   },
   computed : {
      listecovoiturage() {
+      console.log("covoiturage list dans la vue : "+ this.$store.getters.allCovoiturage);
       return this.$store.getters.allCovoiturage;
     }
   },
@@ -125,9 +127,16 @@ export default {
     
   },
 
-beforeCreate() {
-    this.$store.getters.getAllCovoiturageUserId;
-  },
+beforeMount() {
+    if(this.$store.getters.isAuthenticated === true){
+      this.$store.dispatch('getAllCovoiturageUser', this.$store.getters.getHeaders);
+    }else{
+      router.push("/login")
+    }
+ },
+
+
+
 };
 </script>
 <style>
