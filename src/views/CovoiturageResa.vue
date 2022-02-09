@@ -1,7 +1,9 @@
 <template lang="">
     <div>
         <h2>Réserver un covoiturages : </h2>
-        <p> {{$store.state.storeCovoiturage.user.prenom}} {{$store.state.storeCovoiturage.user.nom}} - 
+        <p> 
+          <!-- {{$store.state.storeCovoiturage.user.prenom}} {{$store.state.storeCovoiturage.user.nom}} -  -->
+           {{$store.state.storeUser.user.prenom}} {{$store.state.storeUser.user.nom}} - 
           <v-chip :color="getHistoryColor(dateDuJour)">
                           {{dateDuJour}}
             </v-chip>
@@ -49,6 +51,7 @@ export default {
       listeRafraichie: [],
       isFirstRequestRound: true,
       isDateAvailable: false,
+      // user: this.$store.getters.getUserInfos,
     };
   },
   computed: {
@@ -66,6 +69,7 @@ export default {
       this.listeRafraichie = this.$store.getters.getStoreCovoituragesResa;
     },
   },
+ 
   methods: {
     initRecherche() {
       this.isFirstRequestRound = true;
