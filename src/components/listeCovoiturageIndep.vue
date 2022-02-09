@@ -1,7 +1,7 @@
 <template lang="">
     <div>
         <h2>Liste des covoiturages pour : </h2>
-        <p> {{$store.state.storeCovoiturage.user.prenom}} {{$store.state.storeCovoiturage.user.nom}} - 
+        <p>  {{$store.state.storeUser.user.prenom}} {{$store.state.storeUser.user.nom}} - 
           <v-chip :color="getHistoryColor(date)">
                           {{date}}
             </v-chip>
@@ -76,7 +76,7 @@ export default {
       valeursParticipants: null,
       // date: dateApp(),
       dateDetail: "",
-      resapossible: true,
+      // resapossible: true,
       placesrestantes: 0,
       };
   },
