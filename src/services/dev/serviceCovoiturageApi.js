@@ -90,7 +90,7 @@ class serviceCovoiturageApi {
         console.log("covoiturageId : " + covoiturageId)
         let response = { "data": {} };
         // if (covoiturageresa.length >= 1) {
-            response["data"] = covoiturageresa[0];
+            response["data"] = covoiturageresa;
         // }
         return new Promise(function (resolve) { resolve(response); });
 

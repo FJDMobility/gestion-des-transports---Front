@@ -1,5 +1,19 @@
 <template lang="">
     <div>
+      <div v-if="valeursDetail" >
+            <v-btn @click="()=>valeursDetail=null">
+              <v-icon color="red">
+                mdi-close-box
+              </v-icon>
+            </v-btn>
+            <!-- <CovoiturageDetail :covoiturage="valeursDetail"  -->
+            <CovoiturageDetail :covoiturage="valeursDetail" 
+            resapossible 
+            :placesrestantes="placesrestantes"/>
+            <p></p>
+            <CovoiturageParticipants :covoiturage="valeursDetail[0]" :isHistory="isHistory(dateDetail)"/>
+            <!-- <CovoiturageParticipants :covoiturage="valeursDetail" :isHistory="isHistory(dateDetail)"/> -->
+      </div>
         <h2>Liste des covoiturages pour : </h2>
         <p> {{$store.state.storeCovoiturage.user.prenom}} {{$store.state.storeCovoiturage.user.nom}} - 
           <v-chip :color="getHistoryColor(date)">
@@ -14,21 +28,6 @@
                           A venir
             </v-chip>
         </p>
-
-        <div v-if="valeursDetail" >
-            <v-btn @click="()=>valeursDetail=null">
-              <v-icon color="red">
-                mdi-close-box
-              </v-icon>
-            </v-btn>
-            <!-- <CovoiturageDetail :covoiturage="valeursDetail"  -->
-            <CovoiturageDetail :covoiturage="valeursDetail" 
-            resapossible 
-            :placesrestantes="placesrestantes"/>
-            <p></p>
-            <CovoiturageParticipants :covoiturage="valeursDetail[0]" :isHistory="isHistory(dateDetail)"/>
-            <!-- <CovoiturageParticipants :covoiturage="valeursDetail" :isHistory="isHistory(dateDetail)"/> -->
-        </div>
         <v-data-table  :headers="headers" :sort-by="['dateDepart', 'villeDepart']" :sort-desc="[false, false]"
         :items="listecovoiturage" @click:row="afficherDetail" single-select>
           <template v-slot:item.dateDepart="{ item }">
