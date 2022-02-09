@@ -9,25 +9,20 @@ class serviceCovoiturageApi {
         return axios.get(urlcovoiturage + "/all",{headers})
       }
 
-    static getCovoiturageFromDepartArriveeDateFromAPiToStore(villeDepart, villeArrivee, dateRecherche) {
+    static getCovoiturageFromDepartArriveeDateFromAPiToStore(villeDepart, villeArrivee, dateRecherche,headers) {
+        console.log("API ville depart : "+villeDepart);
+        console.log("API ville arrivee : "+villeArrivee);
+        console.log("API date recherche : "+dateRecherche);
+        console.log("API Headers : " +headers);
         return axios.get(urlcovoiturage +
-            `/covoiturages?villeDepart=${villeDepart}&villeArrivee=${villeArrivee}&dateRecherche=${dateRecherche}`);
+            `/covoiturages?villeDepart=${villeDepart}&villeArrivee=${villeArrivee}&dateRecherche=${dateRecherche}`,{headers});
     }
-    //requete :
-    // covoiturage.filter(covoiturage => ((covoiturage.villeDepart.includes(villeDepart) && covoiturage.villeArrivee.includes(villeArrivee))
-    // && covoiturage.dateDepart >= dateRechercheClean))
+
 
 
     static sendReservation(covoiturageId, user) {
         axios.post(urlcovoiturage + "covoiturages/reservation/add/", 
-        { "covoiturageId": covoiturageId, "userid": user.id }, 
-        // withCredentials: false,
-        // auth: {
-        //     username: 'janedoe',
-        //     password: 's00pers3cret'
-        //   },
-        // responseType: 'json', // default
-        )
+        { "covoiturageId": covoiturageId, "userid": user.id },)
     }
 }
 

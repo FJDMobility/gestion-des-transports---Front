@@ -33,7 +33,7 @@
 import { dateApp } from "../utils/dateUtils";
 import listeCovoiturageIndep from "../components/listeCovoiturageIndep.vue";
 import { mapGetters } from "vuex";
-import { getcvResacovoituragesFromArray } from "@/model/requests/rqResaCovoiturage";
+//import { getcvResacovoituragesFromArray } from "@/model/requests/rqResaCovoiturage";
 export default {
   name: "CovoiturageResa",
   components: {
@@ -49,6 +49,7 @@ export default {
       listeRafraichie: [],
       isFirstRequestRound: true,
       isDateAvailable: false,
+      ...mapGetters(["getHeaders"])
     };
   },
   computed: {
@@ -100,16 +101,16 @@ export default {
     },
     rechercher(villeDepart, villeArrivee, dateRecherche, isFirstRequestRound) {
       if (isFirstRequestRound == true) {
-        this.$store.getters.getCovoiturageFromDepartArriveeDateApi(
-          villeDepart,
-          villeArrivee,
-          dateRecherche
-        );
-        this.isFirstRequestRound = false;
+        this.$store.dispatch('getCovoiturageFromDepartArriveeDateApi',
+        {villeDepart,
+        villeArrivee,
+        dateRecherche,
+        "headers" : this.$store.getters.getHeaders});
+      //  this.isFirstRequestRound = false;
         console.log("recherche API lancee");
       }
 
-      if (isFirstRequestRound == false) {
+      /*if (isFirstRequestRound == false) {
         this.listeRafraichie =
           getcvResacovoituragesFromArray(
             villeDepart,
@@ -119,7 +120,7 @@ export default {
           );
           console.log("recherche 2 Store lancee : " + this.$store.getters.getStoreCovoituragesResa);
 
-      }
+      }*/
     },
   },
 };

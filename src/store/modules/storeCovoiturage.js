@@ -35,11 +35,11 @@ const getters = {
           state.listecovoiturageresa = response.data;
           return state.listecovoiturageresa; //utiliser un mutator à placer dans mutations:
         })
-        // .then(
-        //   (response) => {
-        //     response.data;
-        //     return state.listecovoiturageresa;
-        //   })
+    // .then(
+    //   (response) => {
+    //     response.data;
+    //     return state.listecovoiturageresa;
+    //   })
   },
   getStoreCovoituragesResa: (state) => {
     return state.listecovoiturageresa;
@@ -47,15 +47,15 @@ const getters = {
 
   doReservation: (state) => (covoiturageId) => {
     serviceCovoiturageApi.sendReservation(covoiturageId, state.user)
-        .then(
-          (response) => {
-            if (response.OK) {
-              console.log("doReservation")
-              // recup les participants au covoiturage
-              // refaire une rq sur la base avec toutes les info de la vue
-            }
+      .then(
+        (response) => {
+          if (response.OK) {
+            console.log("doReservation")
+            // recup les participants au covoiturage
+            // refaire une rq sur la base avec toutes les info de la vue
           }
-        );
+        }
+      );
   },
   getUser: (state) => {
     return state.user;
@@ -63,21 +63,47 @@ const getters = {
 };
 
 const actions = {
-  getAllCovoiturageUser({ commit },headers) {
+  getAllCovoiturageUser({ commit }, headers) {
     serviceCovoiturageApi.getAll(headers)
       .then(
         (response) => {
           commit('setListCovoiturage', response.data)
         }
       );
+  },
+  getCovoiturageFromDepartArriveeDateApi({ commit }, { villeDepart, villeArrivee, dateRecherche, headers}) {
+    console.log("villeDepart : "+villeDepart);
+    console.log("villeArrivee : "+villeArrivee);
+    console.log("dateRecherche : "+dateRecherche);
+    console.log("headers : ", headers);
+    serviceCovoiturageApi.getCovoiturageFromDepartArriveeDateFromAPiToStore(villeDepart, villeArrivee, dateRecherche,headers)
+      .then(
+        (response) => {
+          commit('setListecovoiturageresa', response.data)
+        })
+  },
+  doReservation(covoiturageId) {
+    serviceCovoiturageApi.sendReservation(covoiturageId, state.user)
+      .then(
+        (response) => {
+          if (response.OK) {
+            console.log("doReservation")
+          }
+        }
+      );
   }
 };
 
 const mutations = {
-  setListCovoiturage(state,data){
+  setListCovoiturage(state, data) {
     console.log(data);
-    state.listecovoiturage=data;
+    state.listecovoiturage = data;
+  },
+  setListecovoiturageresa(state, data) {
+    console.log(data);
+    state.listecovoiturageresa = data;
   }
+
 };
 
 export default { state, getters, actions, mutations }
