@@ -94,7 +94,6 @@ const mutations = {
 };
 
 const actions = {
-<<<<<<< HEAD
   getCovoiturageFullDataFromApi({ commit }, covoiturageId) {
     console.log("coucou")
     serviceCovoiturageApi.getCovoiturageFullDataFromApi(covoiturageId)
@@ -108,23 +107,3 @@ const actions = {
 };
 
 export default { state, getters, actions, mutations }
-=======
-  getAllCovoiturageUser({ commit },headers) {
-    serviceCovoiturageApi.getAll(headers)
-      .then(
-        (response) => {
-          commit('setListCovoiturage', response.data)
-        }
-      );
-  }
-};
-
-const mutations = {
-  setListCovoiturage(state,data){
-    console.log(data);
-    state.listecovoiturage=data;
-  }
-};
-
-export default { state, getters, actions, mutations }
->>>>>>> 46c2298e436f81447728cd81a18e18e624205960
