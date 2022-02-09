@@ -13,19 +13,9 @@
             <v-chip :color="getHistoryColor('9999-01-01')">
                           A venir
             </v-chip>
-           </p>
-        <v-data-table  :headers="headers" :sort-by="['dateDepart', 'villeDepart']" :sort-desc="[false, false]"
-        :items="listecovoiturage" @click:row="afficherDetail" single-select>
-          <template v-slot:item.dateDepart="{ item }">
-            <v-chip :color="getHistoryColor(item.dateDepart)">
-                          {{ formatDateDisplay(item.dateDepart) }}
-            </v-chip>
-          </template>
-          <template v-slot:item.detail>
-  <button>Reserver</button>
-  </template>
-        </v-data-table> 
-          <div v-if="valeursDetail" >
+        </p>
+
+        <div v-if="valeursDetail" >
             <v-btn @click="()=>valeursDetail=null">
               <v-icon color="red">
                 mdi-close-box
@@ -38,7 +28,19 @@
             <p></p>
             <CovoiturageParticipants :covoiturage="valeursDetail[0]" :isHistory="isHistory(dateDetail)"/>
             <!-- <CovoiturageParticipants :covoiturage="valeursDetail" :isHistory="isHistory(dateDetail)"/> -->
-          </div>
+        </div>
+        <v-data-table  :headers="headers" :sort-by="['dateDepart', 'villeDepart']" :sort-desc="[false, false]"
+        :items="listecovoiturage" @click:row="afficherDetail" single-select>
+          <template v-slot:item.dateDepart="{ item }">
+            <v-chip :color="getHistoryColor(item.dateDepart)">
+                          {{ formatDateDisplay(item.dateDepart) }}
+            </v-chip>
+          </template>
+          <template v-slot:item.detail>
+            <button>Reserver</button>
+          </template>
+        </v-data-table> 
+
     </div>
     
 </template>
