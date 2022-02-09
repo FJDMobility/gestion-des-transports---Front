@@ -31,11 +31,7 @@ export default {
           text: "Mes covoiturages",
           action: "/listecovoiturage",
         },
-        {
-          icon: "mdi-car-clock",
-          text: "Organiser un covoiturage",
-          action: "/organisercovoiturage",
-        },
+        
         {
           icon: "mdi-car-clock",
           text: "Signin",
