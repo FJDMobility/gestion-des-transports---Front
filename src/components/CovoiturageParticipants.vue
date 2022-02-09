@@ -1,7 +1,7 @@
 <template lang="">
     <div>
          <h2>Participants : </h2>
-         <v-data-table :headers="headers" :items="participants" dense hide-default-footer>
+         <v-data-table :headers="headers" :items="covoiturage.participant" dense hide-default-footer>
             
                 <template v-slot:item.annuler="{ item }">
                
@@ -23,7 +23,7 @@ export default {
   name: "CovoiturageParticipants",
   
   props: {
-    participants: {},
+    covoiturage: Object,
     isHistory: Boolean,
   },
   data() {
@@ -35,7 +35,13 @@ export default {
         { text: "", value: "annuler" },
       ],
       userId: this.$store.state.storeCovoiturage.user.id,
+      participants : this.$props.covoiturage.participant,
     };
+  },
+  computed: {
+    getparticipants () {
+      return this.$props.covoiturage.participant;
+    },
   },
   methods: {
     annulerReservationCovoiturage(item, userId) {

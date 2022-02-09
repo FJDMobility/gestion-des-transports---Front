@@ -26,9 +26,7 @@
              <button @click="afficherDetail(item)">Détail</button>
             </template>
             <template v-slot:item.placesDisponibles="{ item }">
-              <p>
-                {{item.placesDisponibles-item.participant.length}}
-              </p>
+              <p>{{item.placesDisponibles-item.participant.length}}</p>
             </template>
         </v-data-table> 
           <div v-if="valeursDetail" >
