@@ -23,7 +23,8 @@ export default {
   name: "CovoiturageParticipants",
   
   props: {
-    participants: {},
+    // participants: {},
+    covoiturage: {},
     isHistory: Boolean,
   },
   data() {
@@ -35,6 +36,7 @@ export default {
         { text: "", value: "annuler" },
       ],
       userId: this.$store.state.storeCovoiturage.user.id,
+      participants : this.$props.covoiturage.participant,
     };
   },
   methods: {

@@ -21,16 +21,9 @@
                           {{ formatDateDisplay(item.dateDepart) }}
             </v-chip>
           </template>
-         
-            <template v-slot>
-             <!-- <button @click="afficherDetail(item, row)">Reserver</button> -->
-             <button>Reserver</button>
-            </template>
-            <!-- <template v-slot:item.placesRestantes="{ item }">
-              <p>
-                {{item.placesDisponibles}}
-              </p>
-            </template> -->
+          <template v-slot:item.detail>
+  <button>Reserver</button>
+  </template>
         </v-data-table> 
           <div v-if="valeursDetail" >
             <v-btn @click="()=>valeursDetail=null">
@@ -38,9 +31,12 @@
                 mdi-close-box
               </v-icon>
             </v-btn>
-            <CovoiturageDetail :covoiturage="valeursDetail" resapossible :placesrestantes="placesrestantes"/>
+            <!-- <CovoiturageDetail :covoiturage="valeursDetail"  -->
+            <CovoiturageDetail :covoiturage="valeursDetail" 
+            resapossible 
+            :placesrestantes="placesrestantes"/>
             <p></p>
-            <CovoiturageParticipants :participants="valeursParticipants" :isHistory="isHistory(dateDetail)"/>
+            <CovoiturageParticipants :covoiturage="valeursDetail" :isHistory="isHistory(dateDetail)"/>
           </div>
     </div>
     
@@ -49,6 +45,7 @@
 import CovoiturageDetail from "./CovoiturageDetail.vue";
 import CovoiturageParticipants from "./CovoiturageParticipants.vue"
 import {dateApp, cleanDate} from "../utils/dateUtils";
+import { mapGetters } from "vuex";
 export default {
   name: "listeCovoiturageIndep",
   props: {
@@ -72,13 +69,28 @@ export default {
         { text: "actions", value: "detail" },
       ],
       userId: this.$store.state.storeCovoiturage.user.id,
+      // valeursDetail: this.$store.getters.getStoreCovoiturageFullData,
       valeursDetail: null,
       valeursParticipants: null,
+      // valeursOrganisateur: null,
+      // valeursVehicule: null,
       // date: dateApp(),
       dateDetail: "",
       resapossible: true,
       placesrestantes: 0,
       };
+  },
+  computed: {
+    ...mapGetters(["getStoreCovoiturageFullData"]),
+    // getValeurParticipants(){
+    //   return this.valeursDetail.participant
+    // }
+  },
+  watch: {
+    getStoreCovoiturageFullData: function () {
+      this.valeursDetail = this.$store.getters.getStoreCovoiturageFullData;
+      this.valeursParticipants = this.valeursDetail.participant;
+      }
   },
   methods: {
     formatDateDisplay(dateTimeString) {
@@ -87,11 +99,14 @@ export default {
 
     afficherDetail(item, row) {
       this.placesrestantes = item.placesDisponibles
-      this.valeursDetail = [item];
-      this.valeursParticipants = item.participant;
       row.select(true);
       this.dateDetail = item.dateDepart;
-      
+      console.log("item.placesDisponibles : " + item.placesDisponibles)
+      console.log("listeCovoiturageIndep.vue - item.id = " + item.id )
+      // this.$store.getters.getCovoiturageFullDataFromApi(item.id);
+      this.$store.dispatch('getCovoiturageFullDataFromApi', item.id);
+      // this.valeursDetail = this.$store.getters.getStoreCovoiturageFullData;
+      // this.getvaleursDetail; ?????
       
     },
     getHistoryColor(dateparm) {
@@ -120,14 +135,10 @@ export default {
         return true
       }
       return false
-    },
-    
-  },
+    }
+  }
+}
 
-beforeCreate() {
-    this.$store.getters.getAllCovoiturageUserId;
-  },
-};
 </script>
 <style>
 tr.v-data-table__selected {

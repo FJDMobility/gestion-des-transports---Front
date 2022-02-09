@@ -19,6 +19,8 @@ export default {
   name : "CovoiturageDetail",
   props : {
         covoiturage : {},
+        // vehicule : {},
+        // organisateur : {},
         resapossible : Boolean,
         placesrestantes : Number,
     },

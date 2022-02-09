@@ -1,4 +1,5 @@
 import { serviceCovoiturageApi } from "../../services/index";
+// import Vue from "vue";
 // import serviceCovoiturageApi from "@/services"
 
 const state = {
@@ -6,13 +7,37 @@ const state = {
   user: { "id": 1, "nom": "Mourier", "prenom": "Denis", "mail": "denis.mourier@covoit.com" },
   listecovoiturage: null,
   listecovoiturageresa: null,
-  covoiturageresaOrganisateur: null,
-  covoiturageresaVehicule: null,
-  covoiturageresaParticipants: null,
+  covoiturageresaSelected: null,
+  // covoiturageresaOrganisateur: null,
+  // covoiturageresaVehicule: null,
+  // covoiturageresaParticipants: null,
 
 };
 
 const getters = {
+
+  getStoreCovoiturageFullData: (state) => {
+    return state.covoiturageresaSelected;
+  },
+
+  // setcovoiturageresaSelected: (state) => (data) => {
+  //   state.covoiturageresaSelected = data;
+  // },
+
+  // getCovoiturageFullDataFromApi: (state) => (covoiturageId) => {
+  //   console.log("coucou, covoiturageId = " + covoiturageId)
+  //   serviceCovoiturageApi.getCovoiturageFullDataFromApi(covoiturageId)
+  //     .then(
+  //       (response) => {
+  //         // state.covoiturageresaSelected = response.data;
+  //         // mutations.setcovoiturageresaSelected(response.data)
+  //         state.covoiturageresaSelected = response.data;
+  //         // context.commit("setcovoiturageresaSelected", response.data);
+  //         console.log("coucou - coucou")
+  //         // return state.covoiturageresaSelected; 
+  //       })
+  // },
+
   allCovoiturage: state => {
     return state.listecovoiturage;
   },
@@ -35,11 +60,11 @@ const getters = {
           state.listecovoiturageresa = response.data;
           return state.listecovoiturageresa; //utiliser un mutator à placer dans mutations:
         })
-        // .then(
-        //   (response) => {
-        //     response.data;
-        //     return state.listecovoiturageresa;
-        //   })
+    // .then(
+    //   (response) => {
+    //     response.data;
+    //     return state.listecovoiturageresa;
+    //   })
   },
   getStoreCovoituragesResa: (state) => {
     return state.listecovoiturageresa;
@@ -47,21 +72,84 @@ const getters = {
 
   doReservation: (state) => (covoiturageId) => {
     serviceCovoiturageApi.sendReservation(covoiturageId, state.user)
-        .then(
-          (response) => {
-            if (response.OK) {
-              console.log("doReservation")
-              // recup les participants au covoiturage
-              // refaire une rq sur la base avec toutes les info de la vue
-            }
+      .then(
+        (response) => {
+          if (response.OK) {
+            console.log("doReservation")
+            // recup les participants au covoiturage
+            // refaire une rq sur la base avec toutes les info de la vue
           }
-        );
+        }
+      );
   },
   getUser: (state) => {
     return state.user;
   },
 };
+  // getStoreCovoituragesResaParticipants: (state) => {
+  //   return state.covoiturageresaParticipants;
+  // },
+
+  // getCovoiturageFullDataFromApi: (store) => (covoiturageId) => {
+  //   serviceCovoiturageApi.getCovoiturageFullDataFromApi(covoiturageId)
+  //     .then(
+  //       (response) => {
+  //         // state.covoiturageresaSelected = response.data;
+  //         // mutations.setcovoiturageresaSelected(response.data)
+  //         store.commit('setcovoiturageresaSelected', response.data);
+  //         // return state.covoiturageresaSelected; 
+  //       })
+  // },
 
 
 
-export default { state, getters }
+  // getParticipantsCovoiturage: (state) => (covoiturageId) => {
+  //   serviceCovoiturageApi.getParticipantsCovoiturage(covoiturageId)
+  //     .then(
+  //       (response) => {
+  //         state.covoiturageresaParticipants = response.data;
+  //         // return state.covoiturageresaParticipants; 
+  //       })
+  // },
+
+  // getOrganisateurCovoiturage: (state) => (covoiturageId) => {
+  //   serviceCovoiturageApi.getOrganisateurCovoiturage(covoiturageId)
+  //     .then(
+  //       (response) => {
+  //         state.covoiturageresaOrganisateur = response.data;
+  //         // return state.covoiturageresaOrganisateur; 
+  //       })
+
+  // },
+
+  // getVehiculeCovoiturage: (state) => (covoiturageId) => {
+  //   serviceCovoiturageApi.getVehiculeCovoiturage(covoiturageId)
+  //     .then(
+  //       (response) => {
+  //         state.getVehiculeCovoiturage = response.data;
+  //         // return state.getVehiculeCovoiturage; 
+  //       })
+  // },
+
+
+
+const mutations = {
+  setcovoiturageresaSelected(state, data) {
+    state.covoiturageresaSelected = data;
+  },
+};
+
+const actions = {
+  getCovoiturageFullDataFromApi({ commit }, covoiturageId) {
+    console.log("coucou")
+    serviceCovoiturageApi.getCovoiturageFullDataFromApi(covoiturageId)
+      .then(
+        (response) => {
+          commit('setcovoiturageresaSelected', response.data);
+          console.log("coucou - coucou")
+        })
+  },
+
+};
+
+export default { state, getters, actions, mutations }
