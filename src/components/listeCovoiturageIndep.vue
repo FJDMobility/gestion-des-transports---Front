@@ -65,17 +65,12 @@ export default {
         { text: "ville départ", value: "villeDepart" },
         { text: "ville arrivée", value: "villeArrivee" },
         { text: "places disponibles", value: "placesDisponibles" },
-        // { text: "places restantes", value: "placesRestantes" },
         { text: "statut", value: "status" },
         { text: "actions", value: "detail" },
       ],
       userId: this.$store.state.storeCovoiturage.user.id,
-      // valeursDetail: this.$store.getters.getStoreCovoiturageFullData,
       valeursDetail: null,
       valeursParticipants: null,
-      // valeursOrganisateur: null,
-      // valeursVehicule: null,
-      // date: dateApp(),
       dateDetail: "",
       resapossible: true,
       placesrestantes: 0,
@@ -83,9 +78,6 @@ export default {
   },
   computed: {
     ...mapGetters(["getStoreCovoiturageFullData"]),
-    // getValeurParticipants(){
-    //   return this.valeursDetail.participant
-    // }
   },
   watch: {
     getStoreCovoiturageFullData: function () {
@@ -104,11 +96,8 @@ export default {
       this.dateDetail = item.dateDepart;
       console.log("item.placesDisponibles : " + item.placesDisponibles)
       console.log("listeCovoiturageIndep.vue - item.id = " + item.id )
-      // this.$store.getters.getCovoiturageFullDataFromApi(item.id);
       this.$store.dispatch('getCovoiturageFullDataFromApi', item.id);
-      // this.valeursDetail = this.$store.getters.getStoreCovoiturageFullData;
-      // this.getvaleursDetail; ?????
-      
+       
     },
     getHistoryColor(dateparm) {
       if (this.isHistory(dateparm)) {
@@ -130,7 +119,6 @@ export default {
     
     isToday(dateparm) {
       let dateItem = dateparm.split("T")[0];
-      // let dateNow = dateApp();
       let dateNow = this.$props.date; //pour afficher la date de recherche en orange
       if (dateItem == dateNow) {
         return true

@@ -86,53 +86,7 @@ const getters = {
     return state.user;
   },
 };
-  // getStoreCovoituragesResaParticipants: (state) => {
-  //   return state.covoiturageresaParticipants;
-  // },
-
-  // getCovoiturageFullDataFromApi: (store) => (covoiturageId) => {
-  //   serviceCovoiturageApi.getCovoiturageFullDataFromApi(covoiturageId)
-  //     .then(
-  //       (response) => {
-  //         // state.covoiturageresaSelected = response.data;
-  //         // mutations.setcovoiturageresaSelected(response.data)
-  //         store.commit('setcovoiturageresaSelected', response.data);
-  //         // return state.covoiturageresaSelected; 
-  //       })
-  // },
-
-
-
-  // getParticipantsCovoiturage: (state) => (covoiturageId) => {
-  //   serviceCovoiturageApi.getParticipantsCovoiturage(covoiturageId)
-  //     .then(
-  //       (response) => {
-  //         state.covoiturageresaParticipants = response.data;
-  //         // return state.covoiturageresaParticipants; 
-  //       })
-  // },
-
-  // getOrganisateurCovoiturage: (state) => (covoiturageId) => {
-  //   serviceCovoiturageApi.getOrganisateurCovoiturage(covoiturageId)
-  //     .then(
-  //       (response) => {
-  //         state.covoiturageresaOrganisateur = response.data;
-  //         // return state.covoiturageresaOrganisateur; 
-  //       })
-
-  // },
-
-  // getVehiculeCovoiturage: (state) => (covoiturageId) => {
-  //   serviceCovoiturageApi.getVehiculeCovoiturage(covoiturageId)
-  //     .then(
-  //       (response) => {
-  //         state.getVehiculeCovoiturage = response.data;
-  //         // return state.getVehiculeCovoiturage; 
-  //       })
-  // },
-
-
-
+    
 const mutations = {
   setcovoiturageresaSelected(state, data) {
     state.covoiturageresaSelected = data;

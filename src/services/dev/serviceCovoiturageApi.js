@@ -1,7 +1,3 @@
-// import axios from "axios"
-// const urlcovoiturage = process.env.VUE_APP_URLCOVOITURAGE;
-// import { cleanDate, dateApp } from "@/utils/dateUtils"
-// import {getcvResacovoituragesFromArray} from "@/services/rqResaCovoiturage"
 import { getcvResacovoituragesFromArray } from "@/model/requests/rqResaCovoiturage"
 
 
@@ -89,9 +85,7 @@ class serviceCovoiturageApi {
             .filter(cvElement => {
                 return cvElement.id == covoiturageId;
             })
-        // .map((cvElement) => {
-        //     return cvElement.participant
-        // });
+        
         console.log("service - getCovoiturageFullDataFromApi covoiturageresa = " + covoiturageresa)
         console.log("covoiturageId : " + covoiturageId)
         let response = { "data": {} };

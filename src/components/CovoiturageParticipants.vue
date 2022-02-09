@@ -23,7 +23,6 @@ export default {
   name: "CovoiturageParticipants",
   
   props: {
-    // participants: Array,
     covoiturage: Object,
     isHistory: Boolean,
   },
