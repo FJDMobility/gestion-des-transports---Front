@@ -32,6 +32,7 @@ export default {
         { text: "Nb de places", value: "voiture.nbrPlaces" },
         { text: "Action", value: "action" },
       ],
+    //   covoiturageAffichage: this.covoiturage,
     };
   },
   methods: {
