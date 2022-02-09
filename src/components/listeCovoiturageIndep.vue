@@ -36,7 +36,8 @@
             resapossible 
             :placesrestantes="placesrestantes"/>
             <p></p>
-            <CovoiturageParticipants :covoiturage="valeursDetail" :isHistory="isHistory(dateDetail)"/>
+            <CovoiturageParticipants :covoiturage="valeursDetail[0]" :isHistory="isHistory(dateDetail)"/>
+            <!-- <CovoiturageParticipants :covoiturage="valeursDetail" :isHistory="isHistory(dateDetail)"/> -->
           </div>
     </div>
     

@@ -45,11 +45,11 @@ class serviceCovoiturageApi {
         // nettoyage de l'objet covoiturage de la base de Dev 
         // pour être dans les conditions de la Prod
         selectedItems.forEach(element => {
-        delete element['voiture'];
-        delete element['participant'];
-        delete element['organisateur'];
+            delete element['voiture'];
+            delete element['participant'];
+            delete element['organisateur'];
         });
-        
+
         // ---------------------------------------------------
         console.log("retour liste covoiturage (sans les participants, ...) : " + JSON.stringify(selectedItems[0]))
         response["data"] = selectedItems;
@@ -89,15 +89,17 @@ class serviceCovoiturageApi {
             .filter(cvElement => {
                 return cvElement.id == covoiturageId;
             })
-            // .map((cvElement) => {
-            //     return cvElement.participant
-            // });
+        // .map((cvElement) => {
+        //     return cvElement.participant
+        // });
         console.log("service - getCovoiturageFullDataFromApi covoiturageresa = " + covoiturageresa)
         console.log("covoiturageId : " + covoiturageId)
         let response = { "data": {} };
-        response["data"] = covoiturageresa;
+        // if (covoiturageresa.length >= 1) {
+            response["data"] = covoiturageresa[0];
+        // }
         return new Promise(function (resolve) { resolve(response); });
-     
+
     }
 
     static getParticipantsCovoiturage(covoiturageId) {
@@ -112,7 +114,7 @@ class serviceCovoiturageApi {
         let response = { "data": {} };
         response["data"] = participants;
         return new Promise(function (resolve) { resolve(response); });
-     
+
     }
 
 
@@ -129,7 +131,7 @@ class serviceCovoiturageApi {
         let response = { "data": {} };
         response["data"] = organisateur;
         return new Promise(function (resolve) { resolve(response); });
-       
+
     }
 
 
@@ -145,7 +147,7 @@ class serviceCovoiturageApi {
         let response = { "data": {} };
         response["data"] = voiture;
         return new Promise(function (resolve) { resolve(response); });
-        
+
 
     }
 }
