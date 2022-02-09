@@ -4,10 +4,10 @@ const urlcovoiturage = process.env.VUE_APP_URLCOVOITURAGE;
 
 class serviceCovoiturageApi {
 
-    static getAll(userId) {
-        console.log("USER ID : " + userId);
-        return axios.get(urlcovoiturage + "/all")
-    }
+    static getAll(headers) {
+        console.log("header : " + headers);
+        return axios.get(urlcovoiturage + "/all",{headers})
+      }
 
     static getCovoiturageFromDepartArriveeDateFromAPiToStore(villeDepart, villeArrivee, dateRecherche) {
         return axios.get(urlcovoiturage +
