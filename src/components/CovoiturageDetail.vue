@@ -46,9 +46,13 @@ export default {
     reserver() {
       console.log(
         "CovoiturageDetail - props - covoiturage - id : " +
-          this.$props.covoiturage[0].id
+        this.$props.covoiturage[0].id
       );
-      this.$store.getters.doReservation(this.$props.covoiturage[0].id);
+      this.$store.dispatch('doReservation',
+        {
+          "idCovoiturage": this.$props.covoiturage[0].id,
+          "headers": this.$store.getters.getHeaders
+        });
     },
   },
 };

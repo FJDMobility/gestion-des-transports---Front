@@ -10,7 +10,7 @@
       </p>
       <form @submit.prevent="authenticateUser">
         <p class="mb-3">
-          <v-container>
+          <v-container id="container">
             <v-text-field autofocus label="username" v-model="username">
             </v-text-field>
             <v-text-field label="password" type="password" v-model="password">
@@ -42,19 +42,26 @@ export default {
         username: this.username,
         password: this.password,
       };
-      console.log("data", data);
       this.$store
         .dispatch("authenticate", data)
         .then((res) => {
-          console.log(res);
+          console.log("Je suis connecté " + res);
           router.push("/");
           this.invalidLogin = false;
         })
         .catch((error) => {
-          console.log(error);
+          console.log("J'ai un pb : " +error);
           this.invalidLogin = true;
         });
     },
   },
 };
 </script>
+
+<style>
+#container{
+  width: 15 rem;
+  margin: auto;
+  position: absolute;
+}
+</style>

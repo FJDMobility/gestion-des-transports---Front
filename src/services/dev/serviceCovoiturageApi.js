@@ -60,6 +60,7 @@ class serviceCovoiturageApi {
         this.storeCvResavoyagesRepo(repo);
     }
 
+    // une requête de reservation 
     static sendReservation(covoiturageId, user) {
         console.log("ajouter resa pour user sur covoiturage id :" + covoiturageId)
         let response = {"data":{},

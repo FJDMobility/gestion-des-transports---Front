@@ -31,7 +31,7 @@
               </p>
             </template>
         </v-data-table> 
-          <div v-if="valeursDetail" >
+          <div v-if="valeursDetail" @close="colseChild">
             <v-btn @click="()=>valeursDetail=null">
               <v-icon color="red">
                 mdi-close-box
@@ -39,7 +39,7 @@
             </v-btn>
             <CovoiturageDetail :covoiturage="valeursDetail"/>
             <p></p>
-            <CovoiturageParticipants :participants="valeursParticipants" :isHistory="isHistory(dateDetail)"/>
+            <CovoiturageParticipants :participants="valeursParticipants" :idcovoiturage="valeursDetail[0].id" :isHistory="isHistory(dateDetail)"/>
           </div>
     </div>
     
@@ -83,6 +83,9 @@ export default {
     formatDateDisplay(dateTimeString) {
       return dateTimeString.split("T").join("  à ");
     },
+    colseChild(){
+      console.log("Je dois fermer");
+    },
 
     // annulerReservationCovoiturage(item, userId) {
     //   serviceCovoiturageApi.annulerCovoiturage(
@@ -98,6 +101,7 @@ export default {
       this.valeursParticipants = item.participant;
       row.select(true);
       this.dateDetail = item.dateDepart;
+      console.log("afficher detail, valeursDetail.id : ",this.valeursDetail[0].id);
       
     },
     getHistoryColor(dateparm) {

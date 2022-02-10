@@ -11,20 +11,44 @@
         <v-form v-model="valid">
             <v-container>
                 <v-row>
-                    <v-text-field v-model="villeDepart" autofocus
-                    label="Ville de depart">
-                    </v-text-field>
-                     <v-text-field v-model="villeArrivee"
-                    label="Ville d'arrivée">
-                    </v-text-field>
-                     <v-text-field v-model="dateDepart" :disabled="isVilleOK"
-                    label="Date de depart">
-                    </v-text-field>
+                    <AutocompleteVille text="Ville départ" v-model="villeDepart"/>
+                    <AutocompleteVille text="Ville arrivée" v-model="villeArrivee"/>
+                     
+                    <div>
+                      <v-menu
+                          v-model="showPicker"
+                          :close-on-content-click="false"
+                          offset-y
+                          full-width
+                          max-width="290px"
+                          min-width="290px"
+                      >
+                          <template v-slot:activator="{ on }">
+                              <v-text-field
+                                  v-model="dateDepart"
+                                  label="Date de depart"
+                                  readonly
+                                  v-on="on"
+                                  :disabled="isVilleOK"
+                              ></v-text-field>
+                          </template>
+                         <v-date-picker
+                              v-model="dateDepart"
+                              no-title
+                              @input="showPicker = false"
+                              :allowed-dates="allowedDates"
+                          ></v-date-picker>>
+                      </v-menu>
+                    </div>
+                    
                 </v-row>
               
                 <v-btn v-on:click="rechercher(villeDepart,villeArrivee,dateDepart,isFirstRequestRound)">Rechercher</v-btn>
                 <v-btn v-on:click="initRecherche">Nouvelle recherche</v-btn>
-               </v-container>           
+               </v-container>  
+
+
+
         </v-form>
 
         <listeCovoiturageIndep :listecovoiturage="listeRafraichie" :date="dateDepart"/>
@@ -35,10 +59,12 @@
 import { dateApp } from "../utils/dateUtils";
 import listeCovoiturageIndep from "../components/listeCovoiturageIndep.vue";
 import { mapGetters } from "vuex";
-import { getcvResacovoituragesFromArray } from "@/model/requests/rqResaCovoiturage";
+import AutocompleteVille from "../components/AutocompleteVille.vue";
+//import { getcvResacovoituragesFromArray } from "@/model/requests/rqResaCovoiturage";
 export default {
   name: "CovoiturageResa",
   components: {
+    AutocompleteVille,
     listeCovoiturageIndep,
   },
   data() {
@@ -51,9 +77,11 @@ export default {
       listeRafraichie: [],
       isFirstRequestRound: true,
       isDateAvailable: false,
-      // user: this.$store.getters.getUserInfos,
+      showPicker: false,
+      ...mapGetters(["getHeaders"])
     };
   },
+  
   computed: {
     ...mapGetters(["getStoreCovoituragesResa"]),
     isVilleOK() {
@@ -71,6 +99,7 @@ export default {
   },
  
   methods: {
+    allowedDates: val => val >= dateApp(),
     initRecherche() {
       this.isFirstRequestRound = true;
       this.villeDepart = "";
@@ -104,16 +133,16 @@ export default {
     },
     rechercher(villeDepart, villeArrivee, dateRecherche, isFirstRequestRound) {
       if (isFirstRequestRound == true) {
-        this.$store.getters.getCovoiturageFromDepartArriveeDateApi(
-          villeDepart,
-          villeArrivee,
-          dateRecherche
-        );
-        this.isFirstRequestRound = false;
+        this.$store.dispatch('getCovoiturageFromDepartArriveeDateApi',
+        {villeDepart,
+        villeArrivee,
+        dateRecherche,
+        "headers" : this.$store.getters.getHeaders});
+      //  this.isFirstRequestRound = false;
         console.log("recherche API lancee");
       }
 
-      if (isFirstRequestRound == false) {
+      /*if (isFirstRequestRound == false) {
         this.listeRafraichie =
           getcvResacovoituragesFromArray(
             villeDepart,
@@ -123,7 +152,7 @@ export default {
           );
           console.log("recherche 2 Store lancee : " + this.$store.getters.getStoreCovoituragesResa);
 
-      }
+      }*/
     },
   },
 };
