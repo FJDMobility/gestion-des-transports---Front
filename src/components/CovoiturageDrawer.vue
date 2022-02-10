@@ -33,6 +33,7 @@ export default {
         },
         {
           icon: "mdi-car-clock",
+<<<<<<< Updated upstream
           text: "Offres",
           action: "/offres",
         },
@@ -48,6 +49,11 @@ export default {
           text: "Signup",
           action: "/signup",
         },
+=======
+          text: "Offres covoiturage",
+          action: "/offres",
+        },
+>>>>>>> Stashed changes
         {
           icon: "mdi-car-arrow-left", //mdi-calendar-clock
           text: "Reserver un covoiturage",
