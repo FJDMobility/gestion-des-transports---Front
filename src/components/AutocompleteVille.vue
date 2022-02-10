@@ -1,53 +1,68 @@
 <template>
-  <v-autocomplete
-        v-model="model"
+    <v-autocomplete
+        v-model.trim="model"
         :items="items"
         :loading="isLoading"
         :search-input.sync="search"
         color="white"
         hide-no-data
-        hide-selected
         item-text="Description"
         item-value="API"
         label="Public APIs"
-        placeholder="Start typing to Search"
+        placeholder="Ville de départ"
         prepend-icon="mdi-database-search"
         return-object
-      ></v-autocomplete>
+        @input="handleInput"
+    ></v-autocomplete>
 </template>
 
 <script>
-  export default {
+import axios from "axios"
+axios.defaults.paramsSerializer = (params) => {
+    let result = '';
+        Object.keys(params).forEach(key => {
+            result += `${key}=${encodeURIComponent(params[key])}&`;
+        });
+        return result.substring(0, result.length - 1);
+}
+
+export default {
+
     data: () => ({
-      descriptionLimit: 5,
-      entries: [],
-      isLoading: false,
-      model: null,
-      search: null,
+        entries: [],
+        isLoading: false,
+        model: null,
+        search: null,
+        villes : [],
     }),
     computed: {
-      fields () {
-        if (!this.model) return []
-        return Object.keys(this.model).map(key => {
-          return {
-            key,
-            value: this.model[key] || 'n/a',
-          }
-        })
-      },
-
-      items () {
-        return this.entries.map(entry => {
-          return entry.nom
-        })
-      },
+        items() {
+            return this.villes.map(ville => {
+                return ville.nom.replaceAll('-', ' ')
+            })
+        },
+    },
+    methods: {
+        handleInput(value){
+            console.log(value);
+            this.$emit('input',value)
+        }
     },
     watch: {
-      search (input) {
-        this.$store.dispatch('loadVillesFromApi',input)
-        this.entries = this.$store.getters.getVilles;
-        console.log(this.entries);
-      },
+        async search(newNom, oldNom) {
+            if (oldNom != null && newNom.trim() === oldNom.trim()) {
+               return  
+            }         
+            await axios.get(`https://geo.api.gouv.fr/communes`, {
+                params: {
+                    "nom": newNom,
+                    "limit": 5,
+                }
+            }).then(response => {
+                console.log(response.data);
+                this.villes = response.data
+            })
+        },
     },
-  }
+}
 </script>

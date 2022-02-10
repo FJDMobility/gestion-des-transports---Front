@@ -16,7 +16,7 @@
     </v-card-text>
     <v-card-text>
       <v-autocomplete
-        v-model="model"
+        v-model.trim="model"
         :items="items"
         :loading="isLoading"
         :search-input.sync="search"
@@ -31,23 +31,6 @@
         return-object
       ></v-autocomplete>
     </v-card-text>
-    <v-divider></v-divider>
-    <v-expand-transition>
-      <v-list
-        v-if="model"
-        class="red lighten-3"
-      >
-        <v-list-item
-          v-for="(field, i) in fields"
-          :key="i"
-        >
-          <v-list-item-content>
-            <v-list-item-title v-text="field.value"></v-list-item-title>
-            <v-list-item-subtitle v-text="field.key"></v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-expand-transition>
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn
@@ -67,34 +50,27 @@
 <script>
   export default {
     data: () => ({
-      descriptionLimit: 5,
       entries: [],
       isLoading: false,
       model: null,
       search: null,
     }),
     computed: {
-      fields () {
-        if (!this.model) return []
-        return Object.keys(this.model).map(key => {
-          return {
-            key,
-            value: this.model[key] || 'n/a',
-          }
-        })
-      },
-
       items () {
-        return this.entries.map(entry => {
-          return entry.nom
+                  
+          return this.$store.getters.getVilles.map(ville => {
+          return ville.nom.replaceAll('-',' ')
         })
       },
     },
     watch: {
-      search (input) {
-        this.$store.dispatch('loadVillesFromApi',input)
-        this.entries = this.$store.getters.getVilles;
-        console.log(this.entries);
+      search (newVal, oldVal) {
+        console.log("new value : "+newVal+'.');
+        console.log("old value : "+oldVal+'.');        
+        if(newVal!=null && oldVal!=null && newVal.trim() === oldVal.trim()){
+          return
+        }
+        this.$store.dispatch('loadVillesFromApi',newVal.trim())        
       },
     },
   }
