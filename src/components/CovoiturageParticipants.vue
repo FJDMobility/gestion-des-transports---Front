@@ -34,7 +34,8 @@ export default {
         { text: "Email", value: "mail" },
         { text: "", value: "annuler" },
       ],
-      userId: this.$store.state.storeCovoiturage.user.id,
+      // userId: this.$store.state.storeCovoiturage.user.id,
+      userId: this.$store.state.storeUser.user.id,
     };
   },
   methods: {

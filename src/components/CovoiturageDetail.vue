@@ -8,20 +8,20 @@
            </v-chip>
           </template>
           <template v-slot:item.action="{}">
-            <v-btn v-if="placesrestantes!=0" @click="reserver">Reserver</v-btn>
-          </template>
+  <v-btn v-if="placesrestantes!=0&&resapossible" @click="reserver">Reserver</v-btn>
+</template>
 
         </v-data-table>
     </div>
 </template>
 <script>
 export default {
-  name : "CovoiturageDetail",
-  props : {
-        covoiturage : {},
-        resapossible : Boolean,
-        placesrestantes : Number,
-    },
+  name: "CovoiturageDetail",
+  props: {
+    covoiturage: {},
+    resapossible: { type: Boolean, default: false },
+    placesrestantes: Number,
+  },
   data() {
     return {
       headers: [
@@ -32,17 +32,24 @@ export default {
         { text: "Nb de places", value: "voiture.nbrPlaces" },
         { text: "Action", value: "action" },
       ],
-    //   covoiturageAffichage: this.covoiturage,
+      //   covoiturageAffichage: this.covoiturage,
     };
   },
   methods: {
-      affichOrganisateur() {
-          return this.covoiturage[0].organisateur.prenom + "  " + this.covoiturage[0].organisateur.nom
-      },
-      reserver() {
-        console.log("CovoiturageDetail - props - covoiturage - id : " + this.$props.covoiturage[0].id)
-        this.$store.getters.doReservation(this.$props.covoiturage[0].id)
-      }
+    affichOrganisateur() {
+      return (
+        this.covoiturage[0].organisateur.prenom +
+        "  " +
+        this.covoiturage[0].organisateur.nom
+      );
+    },
+    reserver() {
+      console.log(
+        "CovoiturageDetail - props - covoiturage - id : " +
+          this.$props.covoiturage[0].id
+      );
+      this.$store.getters.doReservation(this.$props.covoiturage[0].id);
+    },
   },
 };
 </script>
