@@ -11,22 +11,44 @@
         <v-form v-model="valid">
             <v-container>
                 <v-row>
-                     <v-text-field v-model="villeArrivee"
-                    label="Ville d'arrivée">
-                    </v-text-field>
-                     <v-text-field v-model="dateDepart" :disabled="isVilleOK"
-                    label="Date de depart">
-                    </v-text-field>
-                </v-row>
-
-                <v-row>
-                    <AutocompleteVille v-model="villeDepart"/>
-                    <AutocompleteVille/>
+                    <AutocompleteVille text="Ville départ" v-model="villeDepart"/>
+                    <AutocompleteVille text="Ville arrivée" v-model="villeArrivee"/>
+                     
+                    <div>
+                      <v-menu
+                          v-model="showPicker"
+                          :close-on-content-click="false"
+                          offset-y
+                          full-width
+                          max-width="290px"
+                          min-width="290px"
+                      >
+                          <template v-slot:activator="{ on }">
+                              <v-text-field
+                                  v-model="dateDepart"
+                                  label="Date de depart"
+                                  readonly
+                                  v-on="on"
+                                  :disabled="isVilleOK"
+                              ></v-text-field>
+                          </template>
+                         <v-date-picker
+                              v-model="dateDepart"
+                              no-title
+                              @input="showPicker = false"
+                              :allowed-dates="allowedDates"
+                          ></v-date-picker>>
+                      </v-menu>
+                    </div>
+                    
                 </v-row>
               
                 <v-btn v-on:click="rechercher(villeDepart,villeArrivee,dateDepart,isFirstRequestRound)">Rechercher</v-btn>
                 <v-btn v-on:click="initRecherche">Nouvelle recherche</v-btn>
-               </v-container>           
+               </v-container>  
+
+
+
         </v-form>
 
         <listeCovoiturageIndep :listecovoiturage="listeRafraichie" :date="dateDepart"/>
@@ -55,6 +77,7 @@ export default {
       listeRafraichie: [],
       isFirstRequestRound: true,
       isDateAvailable: false,
+      showPicker: false,
       ...mapGetters(["getHeaders"])
     };
   },
@@ -76,6 +99,7 @@ export default {
   },
  
   methods: {
+    allowedDates: val => val >= dateApp(),
     initRecherche() {
       this.isFirstRequestRound = true;
       this.villeDepart = "";

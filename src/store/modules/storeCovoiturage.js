@@ -82,15 +82,19 @@ const actions = {
           commit('setListecovoiturageresa', response.data)
         })
   },
-  doReservation(covoiturageId) {
-    serviceCovoiturageApi.sendReservation(covoiturageId, state.user)
-      .then(
-        (response) => {
-          if (response.OK) {
-            console.log("doReservation")
-          }
-        }
-      );
+  annulerReservationCovoiturage({commit},{idCovoiturage,headers}){
+    console.log("idcovoiturage dans le store  : " + idCovoiturage);
+    console.log("headers dans le store : "+headers);
+    serviceCovoiturageApi.annulerReservation(idCovoiturage,headers)
+    console.log(commit);
+  },
+
+  doReservation({commit},{idCovoiturage,headers}) {
+    console.log("store reserver covoiturage id : " + idCovoiturage);
+    console.log("store reserver headers : " + headers);
+
+    serviceCovoiturageApi.sendReservation(idCovoiturage,headers)
+    commit;  
   }
 };
 

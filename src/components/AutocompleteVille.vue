@@ -8,9 +8,8 @@
         hide-no-data
         item-text="Description"
         item-value="API"
-        label="Public APIs"
-        placeholder="Ville de départ"
-        prepend-icon="mdi-database-search"
+        :placeholder="text"
+        prepend-icon="mdi-city"
         return-object
         @input="handleInput"
     ></v-autocomplete>
@@ -27,7 +26,9 @@ axios.defaults.paramsSerializer = (params) => {
 }
 
 export default {
-
+    props :{
+        text: String,
+    },
     data: () => ({
         entries: [],
         isLoading: false,

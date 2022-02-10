@@ -18,11 +18,15 @@ class serviceCovoiturageApi {
             `/covoiturages?villeDepart=${villeDepart}&villeArrivee=${villeArrivee}&dateRecherche=${dateRecherche}`,{headers});
     }
 
+    static annulerReservation(covoiturageId, headers){
+        axios.delete(urlcovoiturage+'/'+covoiturageId, {headers})
+    }
 
-
-    static sendReservation(covoiturageId, user) {
-        axios.post(urlcovoiturage + "covoiturages/reservation/add/", 
-        { "covoiturageId": covoiturageId, "userid": user.id },)
+    static sendReservation(covoiturageId, headers) {
+        let urlReservation =  urlcovoiturage + "/select/"+covoiturageId;
+        console.log(urlReservation);
+        console.log("headers : " + JSON.stringify(headers));
+        axios.post(urlReservation,{},{headers} )
     }
 }
 
