@@ -1,7 +1,7 @@
 <template lang="">
     <div>
         <h2>Liste des covoiturages pour : </h2>
-        <p> {{$store.state.storeCovoiturage.user.prenom}} {{$store.state.storeCovoiturage.user.nom}} - 
+        <p>  {{$store.state.storeUser.user.prenom}} {{$store.state.storeUser.user.nom}} -  
           <v-chip :color="getHistoryColor(date)">
                           {{date}}
             </v-chip>
@@ -31,7 +31,7 @@
               </p>
             </template>
         </v-data-table> 
-          <div v-if="valeursDetail" >
+          <div v-if="valeursDetail" @close="colseChild">
             <v-btn @click="()=>valeursDetail=null">
               <v-icon color="red">
                 mdi-close-box
@@ -39,7 +39,7 @@
             </v-btn>
             <CovoiturageDetail :covoiturage="valeursDetail"/>
             <p></p>
-            <CovoiturageParticipants :participants="valeursParticipants" :isHistory="isHistory(dateDetail)"/>
+            <CovoiturageParticipants :participants="valeursParticipants" :idcovoiturage="valeursDetail[0].id" :isHistory="isHistory(dateDetail)"/>
           </div>
     </div>
     
@@ -48,6 +48,7 @@
 import CovoiturageDetail from "./CovoiturageDetail.vue";
 import CovoiturageParticipants from "./CovoiturageParticipants.vue"
 import {dateApp} from "../utils/dateUtils";
+import router from "../router";
 export default {
   name: "listeCovoiturage",
   components: {
@@ -69,16 +70,21 @@ export default {
       valeursParticipants: null,
       date: dateApp(),
       dateDetail: "",
+      resapossible: false,
       };
   },
   computed : {
      listecovoiturage() {
+      console.log("covoiturage list dans la vue : "+ this.$store.getters.allCovoiturage);
       return this.$store.getters.allCovoiturage;
     }
   },
   methods: {
     formatDateDisplay(dateTimeString) {
       return dateTimeString.split("T").join("  à ");
+    },
+    colseChild(){
+      console.log("Je dois fermer");
     },
 
     // annulerReservationCovoiturage(item, userId) {
@@ -95,6 +101,7 @@ export default {
       this.valeursParticipants = item.participant;
       row.select(true);
       this.dateDetail = item.dateDepart;
+      console.log("afficher detail, valeursDetail.id : ",this.valeursDetail[0].id);
       
     },
     getHistoryColor(dateparm) {
@@ -125,9 +132,16 @@ export default {
     
   },
 
-beforeCreate() {
-    this.$store.getters.getAllCovoiturageUserId;
-  },
+beforeMount() {
+    if(this.$store.getters.isAuthenticated === true){
+      this.$store.dispatch('getAllCovoiturageUser', this.$store.getters.getHeaders);
+    }else{
+      router.push("/login")
+    }
+ },
+
+
+
 };
 </script>
 <style>

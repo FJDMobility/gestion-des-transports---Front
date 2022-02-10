@@ -1,7 +1,7 @@
 <template lang="">
     <div>
         <h2>Liste des covoiturages pour : </h2>
-        <p> {{$store.state.storeCovoiturage.user.prenom}} {{$store.state.storeCovoiturage.user.nom}} - 
+        <p>  {{$store.state.storeUser.user.prenom}} {{$store.state.storeUser.user.nom}} - 
           <v-chip :color="getHistoryColor(date)">
                           {{date}}
             </v-chip>
@@ -22,14 +22,15 @@
             </v-chip>
           </template>
          
-            <template v-slot:item.detail="{ item }">
-             <button @click="afficherDetail(item)">Détail</button>
+            <template v-slot>
+             <!-- <button @click="afficherDetail(item, row)">Reserver</button> -->
+             <button>Reserver</button>
             </template>
-            <template v-slot:item.placesRestantes="{ item }">
+            <!-- <template v-slot:item.placesRestantes="{ item }">
               <p>
-                {{item.placesDisponibles-item.participant.length}}
+                {{item.placesDisponibles}}
               </p>
-            </template>
+            </template> -->
         </v-data-table> 
           <div v-if="valeursDetail" >
             <v-btn @click="()=>valeursDetail=null">
@@ -37,7 +38,7 @@
                 mdi-close-box
               </v-icon>
             </v-btn>
-            <CovoiturageDetail :covoiturage="valeursDetail"/>
+            <CovoiturageDetail :covoiturage="valeursDetail" resapossible :placesrestantes="placesrestantes"/>
             <p></p>
             <CovoiturageParticipants :participants="valeursParticipants" :isHistory="isHistory(dateDetail)"/>
           </div>
@@ -52,7 +53,8 @@ export default {
   name: "listeCovoiturageIndep",
   props: {
     listecovoiturage : {},
-    date : dateApp(),
+    date : String,
+    
   },
   components: {
     CovoiturageDetail,
@@ -65,7 +67,7 @@ export default {
         { text: "ville départ", value: "villeDepart" },
         { text: "ville arrivée", value: "villeArrivee" },
         { text: "places disponibles", value: "placesDisponibles" },
-        { text: "places restantes", value: "placesRestantes" },
+        // { text: "places restantes", value: "placesRestantes" },
         { text: "statut", value: "status" },
         { text: "actions", value: "detail" },
       ],
@@ -74,6 +76,8 @@ export default {
       valeursParticipants: null,
       // date: dateApp(),
       dateDetail: "",
+      // resapossible: true,
+      placesrestantes: 0,
       };
   },
   methods: {
@@ -82,10 +86,12 @@ export default {
     },
 
     afficherDetail(item, row) {
+      this.placesrestantes = item.placesDisponibles
       this.valeursDetail = [item];
       this.valeursParticipants = item.participant;
       row.select(true);
       this.dateDetail = item.dateDepart;
+      
       
     },
     getHistoryColor(dateparm) {
@@ -109,7 +115,7 @@ export default {
     isToday(dateparm) {
       let dateItem = dateparm.split("T")[0];
       // let dateNow = dateApp();
-      let dateNow = this.date; //pour afficher la date de recherche en orange
+      let dateNow = this.$props.date; //pour afficher la date de recherche en orange
       if (dateItem == dateNow) {
         return true
       }

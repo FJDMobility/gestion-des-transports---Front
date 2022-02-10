@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Covoiturage from '../views/Covoiturage.vue'
 import CovoiturageResa from '../views/CovoiturageResa.vue'
+import login from '../views/login.vue'
+import test from '../views/Test.vue'
 
 Vue.use(VueRouter)
 
@@ -21,6 +23,16 @@ const routes = [
     path: '/covoiturageresa',
     name: 'CovoiturageResa',
     component: CovoiturageResa
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: login
+  },
+  {
+    path: '/test',
+    name: 'test',
+    component: test
   },
   {
     path: '/about',

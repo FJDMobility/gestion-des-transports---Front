@@ -121,7 +121,7 @@
     ],
     "villeDepart": "Nîmessss",
     "villeArrivee": "Uzes",
-    "placesDisponibles": 4
+    "placesDisponibles": 0
   },
   {
     "id": 5,
@@ -170,8 +170,8 @@
     "participant": [
       {
         "id": 10,
-      "prenom": "Victor",
-      "nom": "Hugo",
+      "prenom": "Victor2",
+      "nom": "Hugo2",
       "mail": "lesmiserables@notredame.com"
       }
     ],
@@ -198,8 +198,8 @@
     "participant": [
       {
         "id": 10,
-      "prenom": "Victor",
-      "nom": "Hugo",
+      "prenom": "Victor3",
+      "nom": "Hugo3",
       "mail": "lesmiserables@notredame.com"
       }
     ],
