@@ -38,9 +38,14 @@
                 mdi-close-box
               </v-icon>
             </v-btn>
+            <div v-if="isAlreadyParticipant">
+            <CovoiturageDetail :covoiturage="valeursDetail" :placesrestantes="placesrestantes"/>
+            </div>
+            <div v-if="!isAlreadyParticipant">
             <CovoiturageDetail :covoiturage="valeursDetail" resapossible :placesrestantes="placesrestantes"/>
+            </div>
             <p></p>
-            <CovoiturageParticipants :participants="valeursParticipants" :isHistory="isHistory(dateDetail)"/>
+            <CovoiturageParticipants :participants="valeursParticipants" :idcovoiturage="valeursDetail[0].id" :isHistory="isHistory(dateDetail)"/>
           </div>
     </div>
     
@@ -78,6 +83,7 @@ export default {
       dateDetail: "",
       // resapossible: true,
       placesrestantes: 0,
+      isAlreadyParticipant: false
       };
   },
   methods: {
@@ -91,6 +97,13 @@ export default {
       this.valeursParticipants = item.participant;
       row.select(true);
       this.dateDetail = item.dateDepart;
+      let userId = this.$store.state.storeUser.user.id;
+      this.isAlreadyParticipant = false;
+      let tbParticipantUser = item.participant.filter(participant => participant.id == userId);
+      console.log("tbParticipantUser : " + tbParticipantUser)
+      if(tbParticipantUser.length > 0) {
+        this.isAlreadyParticipant = true
+      }
       
       
     },
