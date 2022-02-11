@@ -25,11 +25,11 @@
             <template v-slot:item.detail="{ item }">
              <button @click="afficherDetail(item)">Détail</button>
             </template>
-            <template v-slot:item.placesDisponibles="{ item }">
+            <!-- <template v-slot:item.placesDisponibles="{ item }">
               <p>
                 {{item.placesDisponibles-item.participant.length}}
               </p>
-            </template>
+            </template> -->
         </v-data-table> 
           <div v-if="valeursDetail" @close="colseChild">
             <v-btn @click="()=>valeursDetail=null">
